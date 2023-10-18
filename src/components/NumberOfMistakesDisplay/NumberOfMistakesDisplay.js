@@ -1,9 +1,17 @@
 import React from "react";
 import { range } from "../../utils";
-function SingleMistakeDisplay({ isUsed }) {
-  // TODO: make this more like dynamic class name base on if used or not
+import { Circle, CircleSlash } from "lucide-react";
 
-  return <>{!isUsed && <p>X</p>}</>;
+function SingleMistakeDisplay({ isUsed }) {
+  return (
+    <div>
+      {isUsed ? (
+        <CircleSlash className="h-4 w-4 stroke-neutral-400" />
+      ) : (
+        <Circle className="h-4 w-4 fill-green-300 stroke-cyan-300" />
+      )}
+    </div>
+  );
 }
 
 function NumberOfMistakesDisplay({ maxMistakes, numMistakesUsed }) {
@@ -11,10 +19,12 @@ function NumberOfMistakesDisplay({ maxMistakes, numMistakesUsed }) {
   const mistakeRange = range(maxMistakes);
   return (
     <div>
-      <p>Mistakes Remaining: </p>
-      {mistakeRange.map((el) => (
-        <SingleMistakeDisplay key={el} isUsed={el < numMistakesUsed} />
-      ))}
+      <div className="flex flex-row gap-x-4">
+        <p className="text-xs">Mistakes Remaining: </p>
+        {mistakeRange.map((el) => (
+          <SingleMistakeDisplay key={el} isUsed={el < numMistakesUsed} />
+        ))}
+      </div>
     </div>
   );
 }
