@@ -1,5 +1,4 @@
 import React from "react";
-import { sleep } from "../../utils";
 import { MAX_MISTAKES } from "../../constants";
 import {
   shuffleGameData,
@@ -7,11 +6,11 @@ import {
   isGuessCorrect,
 } from "../../game-helpers";
 import GameGrid from "../GameGrid";
+import { SolvedWordRow } from "../GameGrid";
 import NumberOfMistakesDisplay from "../NumberOfMistakesDisplay";
-
+import Modal from "../Modal";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
-
 import { useToast } from "../ui/use-toast";
 
 import { Shuffle, Undo, SendHorizontal } from "lucide-react";
@@ -24,6 +23,7 @@ function Game({ gameData, setGameData }) {
   );
   const [solvedGameData, setSolvedGameData] = React.useState([]);
   const [isGameOver, setIsGameOver] = React.useState(false);
+  const [modalData, setModalData] = React.useState({ open: false });
 
   const categorySize = gameData[0].words.length;
   const numCategories = gameData.length;
@@ -35,7 +35,12 @@ function Game({ gameData, setGameData }) {
   // end game if all rows have been solved
   React.useEffect(() => {
     if (solvedGameData.length === gameData.length) {
-      window.alert("You Won!");
+      setModalData({
+        open: true,
+        title: "You won the game!",
+        description: "Great job, share your results!",
+        isGameOver: true,
+      });
       setIsGameOver(true);
       return;
     }
@@ -51,8 +56,23 @@ function Game({ gameData, setGameData }) {
   // use effect to check if all mistakes have been used and end the game accordingly
   React.useEffect(() => {
     if (numMistakesUsed >= MAX_MISTAKES) {
-      window.alert("You lost :(");
+      setModalData({
+        open: true,
+        title: "You lost.",
+        description: "Better luck next time.",
+        isGameOver: true,
+        extraElements: (
+          <div className="grid gap-y-2">
+            <p>The correct answers are below.</p>
+            {gameData.map((obj) => (
+              <SolvedWordRow key={obj.category} {...obj} />
+            ))}
+          </div>
+        ),
+      });
+
       setIsGameOver(true);
+
       return;
     }
   }, [submittedGuesses]);
@@ -79,13 +99,24 @@ function Game({ gameData, setGameData }) {
     // add guess to state
     setSubmittedGuesses([...submittedGuesses, guessCandidate]);
     // check if the guess is correct
-    const { isCorrect, correctWords, correctCategory, isGuessOneAway } =
-      isGuessCorrect({
-        guessCandidate,
-        gameData,
-      });
+    const {
+      isCorrect,
+      correctWords,
+      correctCategory,
+      isGuessOneAway,
+      correctDifficulty,
+    } = isGuessCorrect({
+      guessCandidate,
+      gameData,
+    });
 
-    console.log({ isCorrect, correctWords, correctCategory, isGuessOneAway });
+    console.log({
+      isCorrect,
+      correctWords,
+      correctCategory,
+      isGuessOneAway,
+      correctDifficulty,
+    });
 
     if (isGuessOneAway) {
       toast({
@@ -101,7 +132,11 @@ function Game({ gameData, setGameData }) {
     if (isCorrect) {
       setSolvedGameData([
         ...solvedGameData,
-        { category: correctCategory, words: correctWords },
+        {
+          category: correctCategory,
+          words: correctWords,
+          difficulty: correctDifficulty,
+        },
       ]);
       const dataLeftForRows = gameData.filter((dataObj) => {
         return dataObj.category !== correctCategory;
@@ -116,6 +151,12 @@ function Game({ gameData, setGameData }) {
       <h4 className="text-md">
         Create {numCategories} groups of {categorySize}
       </h4>
+      {modalData.open && (
+        <Modal title={modalData.title}>
+          {modalData.description}
+          {modalData.extraElements}
+        </Modal>
+      )}
       <GameGrid
         solvedGameData={solvedGameData}
         gameRows={shuffledRows}
