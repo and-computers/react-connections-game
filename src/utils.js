@@ -1,3 +1,14 @@
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs) {
+  return twMerge(clsx(inputs));
+}
+
+export function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export const range = (start, end, step = 1) => {
   let output = [];
   if (typeof end === "undefined") {
@@ -48,6 +59,7 @@ export const differenceOfArrays = (arr1, arr2) => {
 };
 
 export const doArraysHaveSameValues = (arr1, arr2) => {
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
   const difference = differenceOfArrays(arr1, arr2);
 
   return difference.length === 0 && arr1.length === arr2.length;
