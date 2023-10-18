@@ -1,0 +1,16 @@
+.flexGrid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100vw;
+  position: relative;
+}
+
+.flex-grid * {
+  width: calc(24px + 4 * 24px);
+  margin: auto;
+}
+
+.flexGrid,
+.flexGrid * {
+  gap: 8px;
+}
