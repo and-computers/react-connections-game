@@ -6,7 +6,6 @@ import {
 } from "./utils";
 
 export function shuffleGameData({ gameData }) {
-  const shuffledCategories = shuffle(gameData);
   const categorySize = gameData[0].words.length;
   const numCategories = gameData.length;
   let allWords = [];
@@ -22,15 +21,23 @@ export function isGuessCorrect({ gameData, guessCandidate }) {
   let correctWords = "";
   let correctCategory = "";
   let isGuessOneAway = false;
+  let correctDifficulty = null;
   const differencesOfArrays = [];
   for (let i = 0; i < gameData.length; i++) {
-    const correctWords = gameData[i].words;
-    const correctCategory = gameData[i].category;
+    correctWords = gameData[i].words;
+    correctCategory = gameData[i].category;
+    correctDifficulty = gameData[i].difficulty;
 
     if (doArraysHaveSameValues(guessCandidate, correctWords)) {
       console.log("correct guess!");
       isCorrect = true;
-      return { isCorrect, correctWords, correctCategory, isGuessOneAway };
+      return {
+        isCorrect,
+        correctWords,
+        correctCategory,
+        isGuessOneAway,
+        correctDifficulty,
+      };
     } else {
       // check size of difference, were doing this twice, but no need to optimize for tiny arrays
       const differenceLength = differenceOfArrays(
