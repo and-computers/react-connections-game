@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./WordButton.module.css";
 
+import { Toggle } from "../ui/toggle";
+
 function WordButton({
   word,
   setGuessCandidate,
@@ -14,10 +16,6 @@ function WordButton({
   React.useEffect(() => {
     setIsSelected(!!guessCandidate.includes(word));
   }, [guessCandidate]);
-
-  const buttonClassName = `${styles.wordCell} ${
-    isSelected ? styles.selected : ""
-  }`;
 
   function flipSelection() {
     if (isSelected) {
@@ -37,11 +35,10 @@ function WordButton({
       }
     }
   }
-
   return (
-    <button onClick={flipSelection} className={buttonClassName}>
+    <Toggle variant="outline" pressed={isSelected} onClick={flipSelection}>
       {word}
-    </button>
+    </Toggle>
   );
 }
 
