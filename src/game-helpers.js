@@ -22,6 +22,7 @@ export function isGuessCorrect({ gameData, guessCandidate }) {
   let correctWords = "";
   let correctCategory = "";
   let isGuessOneAway = false;
+  const differencesOfArrays = [];
   for (let i = 0; i < gameData.length; i++) {
     const correctWords = gameData[i].words;
     const correctCategory = gameData[i].category;
@@ -32,10 +33,16 @@ export function isGuessCorrect({ gameData, guessCandidate }) {
       return { isCorrect, correctWords, correctCategory, isGuessOneAway };
     } else {
       // check size of difference, were doing this twice, but no need to optimize for tiny arrays
-      isGuessOneAway =
-        differenceOfArrays(guessCandidate, correctWords).length === 1;
+      const differenceLength = differenceOfArrays(
+        guessCandidate,
+        correctWords
+      ).length;
+      // store how far off their guess was from category
+      differencesOfArrays.push(differenceLength);
     }
   }
+
+  isGuessOneAway = Math.min(...differencesOfArrays) === 1;
 
   return { isCorrect, correctWords, correctCategory, isGuessOneAway };
 }
