@@ -1,11 +1,12 @@
 import React from "react";
-import styles from "./GameGrid.module.css";
 
 import WordButton from "../WordButton";
 
+import { Check } from "lucide-react";
+
 function WordRow({ words, setGuessCandidate, guessCandidate }) {
   return (
-    <div className={styles.flexGrid}>
+    <div className={`grid grid-cols-${words.length} gap-4`}>
       {words.map((word) => (
         <WordButton
           key={word}
@@ -21,10 +22,9 @@ function WordRow({ words, setGuessCandidate, guessCandidate }) {
 
 function SolvedWordRow({ ...props }) {
   return (
-    <div>
-      <p>Solved!</p>
-      <p>{props.category}</p>
-      <p>{JSON.stringify(props.words)}</p>
+    <div className={` bg-green-300 border-solid`}>
+      <p className="font-bold">{props.category}</p>
+      <p className="font-thin">{props.words.join(", ")}</p>
     </div>
   );
 }
@@ -38,20 +38,24 @@ function GameGrid({
   isGameOver,
 }) {
   return (
-    <div>
-      {solvedGameData.map((solvedRowObj) => (
-        <SolvedWordRow key={solvedRowObj.category} {...solvedRowObj} />
-      ))}
-      {!isGameOver &&
-        gameRows.map((row, idx) => (
-          <WordRow
-            key={idx}
-            setGuessCandidate={setGuessCandidate}
-            words={row}
-            guessCandidate={guessCandidate}
-          />
+    <>
+      <div className="grid gap-y-4">
+        {solvedGameData.map((solvedRowObj) => (
+          <SolvedWordRow key={solvedRowObj.category} {...solvedRowObj} />
         ))}
-    </div>
+      </div>
+      <div className="grid gap-y-4">
+        {!isGameOver &&
+          gameRows.map((row, idx) => (
+            <WordRow
+              key={idx}
+              setGuessCandidate={setGuessCandidate}
+              words={row}
+              guessCandidate={guessCandidate}
+            />
+          ))}
+      </div>
+    </>
   );
 }
 

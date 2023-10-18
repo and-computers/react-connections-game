@@ -3,6 +3,7 @@ import Header from "../Header";
 import Game from "../Game";
 import { sample } from "../../utils";
 import { CONNECTION_GAMES } from "../../data";
+import { Toaster } from "../ui/toaster";
 function App() {
   const [gameData, setGameData] = React.useState(sample(CONNECTION_GAMES));
   return (
@@ -10,6 +11,7 @@ function App() {
       <Header />
       <div className="game-wrapper">
         <Game gameData={gameData} setGameData={setGameData} />
+        <Toaster />
       </div>
     </div>
   );

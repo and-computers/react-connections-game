@@ -1,4 +1,5 @@
 import React from "react";
+import { sleep } from "../../utils";
 import { MAX_MISTAKES } from "../../constants";
 import {
   shuffleGameData,
@@ -7,6 +8,13 @@ import {
 } from "../../game-helpers";
 import GameGrid from "../GameGrid";
 import NumberOfMistakesDisplay from "../NumberOfMistakesDisplay";
+
+import { Button } from "../ui/button";
+import { Separator } from "../ui/separator";
+
+import { useToast } from "../ui/use-toast";
+
+import { Shuffle, Undo, SendHorizontal } from "lucide-react";
 
 function Game({ gameData, setGameData }) {
   const [guessCandidate, setGuessCandidate] = React.useState([]);
@@ -20,6 +28,8 @@ function Game({ gameData, setGameData }) {
   const categorySize = gameData[0].words.length;
   const numCategories = gameData.length;
   const numMistakesUsed = submittedGuesses.length - solvedGameData.length;
+
+  const { toast } = useToast();
 
   // use effect to update Game Grid after a row has been correctly solved
   // end game if all rows have been solved
@@ -58,7 +68,12 @@ function Game({ gameData, setGameData }) {
     }
     // check that the guess hasnt already been submitted previously
     if (isGuessRepeated({ submittedGuesses, guessCandidate })) {
-      window.alert("You previously made this guess!");
+      toast({
+        label: "Notification",
+        title: "Repeated Guess",
+        description: "You previously made this guess!",
+      });
+
       return;
     }
     // add guess to state
@@ -73,7 +88,12 @@ function Game({ gameData, setGameData }) {
     console.log({ isCorrect, correctWords, correctCategory, isGuessOneAway });
 
     if (isGuessOneAway) {
-      window.alert("one guess away");
+      toast({
+        label: "Notification",
+        title: "Close Guess",
+        description:
+          "You we're one guess away from correctly guessing a category!",
+      });
     }
 
     // if the guess is correct:
@@ -88,15 +108,14 @@ function Game({ gameData, setGameData }) {
       });
       setShuffledRows(shuffleGameData({ gameData: dataLeftForRows }));
     }
-
     setGuessCandidate([]);
   }
 
   return (
     <>
-      <p>
+      <h4 className="text-md">
         Create {numCategories} groups of {categorySize}
-      </p>
+      </h4>
       <GameGrid
         solvedGameData={solvedGameData}
         gameRows={shuffledRows}
@@ -105,21 +124,32 @@ function Game({ gameData, setGameData }) {
         setGuessCandidate={setGuessCandidate}
         isGameOver={isGameOver}
       />
+      <Separator />
       <NumberOfMistakesDisplay
         maxMistakes={MAX_MISTAKES}
         numMistakesUsed={numMistakesUsed}
       />
-      <div>
-        <button onClick={() => setShuffledRows(shuffleGameData({ gameData }))}>
-          Shuffle
-        </button>
-        <button onClick={deselectAll}>Deselect All</button>
-        <button
-          onClick={submitCandidateGuess}
-          disabled={guessCandidate.length !== categorySize}
+      <div className="grid grid-cols-3 gap-4">
+        <Button
+          disabled={isGameOver}
+          variant="secondary"
+          onClick={() => setShuffledRows(shuffleGameData({ gameData }))}
         >
+          <Shuffle className="h-4 w-4 mr-2" strokeWidth={1} />
+          Shuffle
+        </Button>
+        <Button disabled={isGameOver} variant="secondary" onClick={deselectAll}>
+          <Undo className="h-4 w-4 mr-2" strokeWidth={1} />
+          Deselect All
+        </Button>
+        <Button
+          variant="submit"
+          onClick={submitCandidateGuess}
+          disabled={isGameOver || guessCandidate.length !== categorySize}
+        >
+          <SendHorizontal className="h-4 w-4 mr-2" strokeWidth={1} />
           Submit
-        </button>
+        </Button>
       </div>
     </>
   );
