@@ -6,11 +6,21 @@ import {
 } from "./utils";
 
 export function shuffleGameData({ gameData }) {
-  const categorySize = gameData[0].words.length;
+  let categorySize;
+  if (gameData[0]?.words) {
+    categorySize = gameData[0].words.length;
+  } else {
+    categorySize = gameData[0].length;
+  }
+
   const numCategories = gameData.length;
   let allWords = [];
   for (let i = 0; i < numCategories; i++) {
-    allWords.push(gameData[i].words);
+    if (gameData[i]?.words) {
+      allWords.push(gameData[i].words);
+    } else {
+      allWords.push(gameData[i]);
+    }
   }
 
   return chunk(categorySize, shuffle(allWords.flat()));
