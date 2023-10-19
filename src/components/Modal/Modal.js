@@ -16,13 +16,22 @@ function Modal({
   title = "title",
   continueButtonText = "Continue",
   trigger = undefined,
+  initiallyOpen = true,
   children,
 }) {
-  const [isOpen, setIsOpen] = React.useState(true);
+  const [isOpen, setIsOpen] = React.useState(initiallyOpen);
+  React.useEffect(() => {
+    setIsOpen(initiallyOpen);
+  }, [initiallyOpen]);
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       {!!trigger && <AlertDialogTrigger>{trigger}</AlertDialogTrigger>}
-      <AlertDialogContent>
+      <AlertDialogContent
+        onEscapeKeyDown={setIsOpen}
+        onCloseAutoFocus={(e) => {
+          e.preventDefault();
+        }}
+      >
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>{children}</AlertDialogDescription>
