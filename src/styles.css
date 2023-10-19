@@ -31,16 +31,6 @@ body {
   }
 }
 
-button {
-  margin: 0;
-  padding: 0;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  text-align: left;
-  color: inherit;
-}
-
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -78,88 +68,13 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: var(--game-spacing);
-  padding: var(--game-spacing) 32px;
+  padding-top: 16px;
+  padding-bottom: var(--game-spacing);
+  padding-left: var(--game-spacing);
+  padding-right: var(--game-spacing);
   margin: 0 auto;
   min-width: 250px;
   max-width: min(500px, 58vh, 100%);
-}
-
-.guess-results {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.guess {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 4px;
-}
-
-.cell {
-  position: relative;
-  width: 20%;
-  display: grid;
-  place-content: center;
-  aspect-ratio: 1 / 1;
-  border: 2px solid var(--color-gray-700);
-  border-radius: var(--radius);
-  font-size: 2rem;
-}
-
-/*
-    Round the corners for the 4 cells at the very corners of
-    the game board
-  */
-.guess:first-of-type .cell:first-of-type {
-  --radius: 4px 0px 0px 0px;
-}
-.guess:first-of-type .cell:last-of-type {
-  --radius: 0px 4px 0px 0px;
-}
-.guess:last-of-type .cell:last-of-type {
-  --radius: 0px 0px 4px 0px;
-}
-.guess:last-of-type .cell:first-of-type {
-  --radius: 0px 0px 0px 4px;
-}
-
-.cell.correct {
-  background: var(--color-success);
-  border-color: var(--color-success);
-  color: white;
-}
-.cell.incorrect {
-  background: var(--color-gray-300);
-  border-color: var(--color-gray-300);
-  color: white;
-}
-.cell.misplaced {
-  background: var(--color-warning);
-  border-color: var(--color-warning);
-  color: white;
-}
-
-.guess-input-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  height: 6.75rem;
-}
-
-.guess-input-wrapper label {
-  font-size: 1.25rem;
-}
-
-.guess-input-wrapper input {
-  display: block;
-  width: 100%;
-  font-size: 2rem;
-  border: 2px solid var(--color-gray-300);
-  border-radius: 4px;
-  padding: 8px 16px;
-  outline-offset: 4px;
 }
 
 .banner {
@@ -195,29 +110,6 @@ h1 {
   margin: -1px;
   padding: 0;
   border: 0;
-}
-
-/*
-    Modal styles
-  
-    HACK: I'm doing this in a quick and dirty way.
-    Later in the course, we'll see my preferred way of building
-    modals in React.
-  */
-[data-reach-dialog-content] {
-  position: relative;
-  border-radius: 8px;
-  padding: 24px 32px;
-}
-.modal-close-btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 16px;
-  cursor: pointer;
-}
-.modal-title {
-  margin-bottom: 0.5em;
 }
 
 /*
