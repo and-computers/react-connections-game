@@ -70,6 +70,9 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
+    fontFamily: {
+      "space-mono": ["Space Mono"],
+    },
   },
   plugins: [require("tailwindcss-animate")],
 };
