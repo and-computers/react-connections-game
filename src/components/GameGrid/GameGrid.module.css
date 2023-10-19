@@ -1,16 +1,46 @@
-.flexGrid {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100vw;
-  position: relative;
+.shake {
+  animation-name: tilt-shaking;
+  animation-duration: 0.1s;
+  animation-delay: 0.5s;
+  animation-iteration-count: 5;
 }
 
-.flex-grid * {
-  width: calc(24px + 4 * 24px);
-  margin: auto;
+@keyframes shake-horizontal {
+  0% {
+    transform: translateX(0%);
+  }
+
+  25% {
+    transform: translateX(-1%);
+  }
+
+  50% {
+    transform: translateX(1%);
+  }
+
+  75% {
+    transform: translateX(-1%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
 }
 
-.flexGrid,
-.flexGrid * {
-  gap: 8px;
+@keyframes tilt-shaking {
+  0% {
+    transform: rotate(0.5deg);
+  }
+  25% {
+    transform: rotate(1deg);
+  }
+  50% {
+    transform: rotate(0eg);
+  }
+  75% {
+    transform: rotate(-0.5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }

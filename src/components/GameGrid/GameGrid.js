@@ -2,7 +2,7 @@ import React from "react";
 
 import WordButton from "../WordButton";
 
-import { Check } from "lucide-react";
+import styles from "./GameGrid.module.css";
 
 function WordRow({ words, setGuessCandidate, guessCandidate }) {
   return (
@@ -45,15 +45,29 @@ function GameGrid({
   setGuessCandidate,
   solvedGameData,
   isGameOver,
+  shouldGridShake,
+  setShouldGridShake,
 }) {
+  React.useEffect(() => {
+    const shakeEffect = window.setTimeout(() => {
+      console.log("turning off shake");
+      setShouldGridShake(false);
+      // this timeout should probably be calculated since it depends on animation values
+    }, 2000);
+
+    // cleanup timeout
+    return () => window.clearTimeout(shakeEffect);
+  }, [submittedGuesses]);
   return (
     <>
-      <div className="grid gap-y-2">
-        {solvedGameData.map((solvedRowObj) => (
-          <SolvedWordRow key={solvedRowObj.category} {...solvedRowObj} />
-        ))}
-      </div>
-      <div className="grid gap-y-2">
+      {solvedGameData.length > 0 && (
+        <div className="grid gap-y-2">
+          {solvedGameData.map((solvedRowObj) => (
+            <SolvedWordRow key={solvedRowObj.category} {...solvedRowObj} />
+          ))}
+        </div>
+      )}
+      <div className={`grid gap-y-2 ${shouldGridShake && styles.shake}`}>
         {!isGameOver &&
           gameRows.map((row, idx) => (
             <WordRow
