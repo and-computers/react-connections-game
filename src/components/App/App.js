@@ -9,10 +9,8 @@ function App() {
   return (
     <div className="wrapper">
       <Header />
-      <div className="game-wrapper">
-        <Game gameData={gameData} setGameData={setGameData} />
-        <Toaster />
-      </div>
+      <Game gameData={gameData} setGameData={setGameData} />
+      <Toaster />
     </div>
   );
 }
