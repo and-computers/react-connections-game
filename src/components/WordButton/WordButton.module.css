@@ -10,6 +10,16 @@
   border: 2px solid black;
 }
 
+.growShrink {
+  /*Tell this element which properties to animate if something changes
+  We are saying all properties will animate when changed seconds*/
+  transition: all 0.4s;
+}
+
+.growShrink[data-state="on"] {
+  transform: scale(1.05);
+}
+
 /* .button {
   padding: 8px 8px;
   gap: 4px;

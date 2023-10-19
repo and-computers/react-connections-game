@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./WordButton.module.css";
-
 import { Toggle } from "../ui/toggle";
 
 function WordButton({
@@ -35,9 +34,15 @@ function WordButton({
       }
     }
   }
+
   return (
-    <Toggle variant="outline" pressed={isSelected} onClick={flipSelection}>
-      {word}
+    <Toggle
+      className={`${styles.growShrink} select-none`}
+      variant="outline"
+      pressed={isSelected}
+      onClick={flipSelection}
+    >
+      <p className="font-space-mono">{word}</p>
     </Toggle>
   );
 }
