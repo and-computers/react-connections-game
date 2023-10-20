@@ -7,6 +7,9 @@ import {
   differenceOfArrays,
 } from "./utils";
 
+import { GAME_TITLE, GAME_URL } from "./constants";
+import { solutionIndex } from "./time-utils";
+
 export function shuffleGameData({ gameData }) {
   let categorySize;
   if (gameData[0]?.words) {
@@ -83,9 +86,6 @@ const webShareApiDeviceTypes = ["mobile", "smarttv", "wearable"];
 const parser = new UAParser();
 const browser = parser.getBrowser();
 const device = parser.getDevice();
-
-const GAME_TITLE = "Black Connections";
-const solutionIndex = 1;
 
 export const shareStatus = (
   gameData,
@@ -169,7 +169,7 @@ export const generateEmojiGrid = (
     allEmojiRowsArray.push(emojiRowForGuess);
   }
 
-  return allEmojiRowsArray.join("\n");
+  return allEmojiRowsArray.join("\n") + "\n\n" + GAME_URL;
 };
 
 const attemptShare = (shareData) => {

@@ -15,8 +15,9 @@ import { CONNECTION_GAMES } from "./data";
 export const getToday = () => startOfToday();
 export const getYesterday = () => startOfYesterday();
 
-// 10 October 2023 Game Epoch
-export const firstGameDate = new Date(2023, 10, 10);
+// October 2023 Game Epoch
+// https://stackoverflow.com/questions/2552483/why-does-the-month-argument-range-from-0-to-11-in-javascripts-date-constructor
+export const firstGameDate = new Date(2023, 9, 9);
 export const periodInDays = 10;
 
 export const getLastGameDate = (today) => {
@@ -40,6 +41,7 @@ export const isValidGameDate = (date) => {
 export const getIndex = (gameDate) => {
   let start = firstGameDate;
   let index = -1;
+  console.log(firstGameDate);
   do {
     index++;
     start = addDays(start, periodInDays);
@@ -60,6 +62,7 @@ export const getSolution = (gameDate) => {
   const nextGameDate = getNextGameDate(gameDate);
   const index = getIndex(gameDate);
   const puzzleOfTheDay = getPuzzleOfDay(index);
+  console.log("index for today: ", index);
   return {
     solution: puzzleOfTheDay,
     solutionGameDate: gameDate,

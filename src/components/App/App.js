@@ -1,11 +1,11 @@
 import React from "react";
 import Header from "../Header";
 import Game from "../Game";
-import { sample } from "../../lib/utils";
-import { CONNECTION_GAMES } from "../../lib/data";
+
 import { Toaster } from "../ui/toaster";
+import { solution as puzzleForToday } from "../../lib/time-utils";
 function App() {
-  const [gameData, setGameData] = React.useState(sample(CONNECTION_GAMES));
+  const [gameData, setGameData] = React.useState(puzzleForToday);
   return (
     <div className="wrapper">
       <Toaster />
