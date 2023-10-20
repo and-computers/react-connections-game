@@ -9,10 +9,12 @@ function GameStatusProvider({ children }) {
   const [guessCandidate, setGuessCandidate] = React.useState([]);
   const [submittedGuesses, setSubmittedGuesses] = React.useState([]);
   const [solvedGameData, setSolvedGameData] = React.useState([]);
-  const numMistakesUsed = submittedGuesses.length - solvedGameData.length;
 
   const { gameData } = React.useContext(PuzzleDataContext);
 
+  const numMistakesUsed = submittedGuesses.length - solvedGameData.length;
+
+  // use effect to check if game is won
   React.useEffect(() => {
     if (solvedGameData.length === gameData.length) {
       setIsGameOver(true);
@@ -22,11 +24,10 @@ function GameStatusProvider({ children }) {
 
   // use effect to check if all mistakes have been used and end the game accordingly
   React.useEffect(() => {
-    if (numMistakesUsed < MAX_MISTAKES) {
-      return;
+    if (numMistakesUsed >= MAX_MISTAKES) {
+      setIsGameOver(true);
+      setIsGameWon(false);
     }
-    setIsGameOver(true);
-    setIsGameWon(false);
   }, [submittedGuesses]);
 
   return (

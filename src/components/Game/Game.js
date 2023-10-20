@@ -66,10 +66,8 @@ function Game() {
     if (!isGameOver) {
       return;
     }
-
     // extra delay for game won to allow confetti to show
     const modalDelay = isGameWon ? 2000 : 250;
-
     const delayModalOpen = window.setTimeout(() => {
       setisEndGameModalOpen(true);
       //unmount confetti after modal opens
@@ -144,9 +142,9 @@ function Game() {
 
   return (
     <>
-      <h4 className="text-xl text-center mt-4">
+      <h3 className="text-xl text-center mt-4">
         Create {numCategories} groups of {categorySize}
-      </h4>
+      </h3>
 
       <div className={`game-wrapper`}>
         {isGameOver && isGameWon ? (
