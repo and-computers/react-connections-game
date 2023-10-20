@@ -8,9 +8,11 @@ import {
   shareStatus,
 } from "../../game-helpers";
 import GameGrid from "../GameGrid";
-import { SolvedWordRow } from "../GameGrid";
 import NumberOfMistakesDisplay from "../NumberOfMistakesDisplay";
 import Modal from "../Modal";
+import Sparkles from "../Sparkles";
+import { SolvedWordRow } from "../GameGrid";
+
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { useToast } from "../ui/use-toast";
@@ -28,6 +30,7 @@ function Game({ gameData, setGameData }) {
   const [modalData, setModalData] = React.useState({ open: false });
   const [gridShake, setGridShake] = React.useState(false);
   const [showConfetti, setShowConfetti] = React.useState(false);
+  const [isGameWon, setIsGameWon] = React.useState(false);
 
   const categorySize = gameData[0].words.length;
   const numCategories = gameData.length;
@@ -54,19 +57,21 @@ function Game({ gameData, setGameData }) {
             </div>
           ),
           footerElements: (
-            <Button
-              className="border-solid bg-cyan-600/80"
-              onClick={() =>
-                shareStatus(
-                  gameData,
-                  submittedGuesses,
-                  handleShareToClipboard,
-                  handleShareFailure
-                )
-              }
-            >
-              Share
-            </Button>
+            <Sparkles>
+              <Button
+                className="border-solid bg-cyan-600/80 basis-1/2"
+                onClick={() =>
+                  shareStatus(
+                    gameData,
+                    submittedGuesses,
+                    handleShareToClipboard,
+                    handleShareFailure
+                  )
+                }
+              >
+                Share
+              </Button>
+            </Sparkles>
           ),
         });
         // unmount confetti as well
@@ -74,6 +79,7 @@ function Game({ gameData, setGameData }) {
       }, 2000);
 
       setIsGameOver(true);
+      setIsGameWon(true);
       setShowConfetti(true);
 
       return () => window.clearTimeout(delayModalOpen);
@@ -122,23 +128,26 @@ function Game({ gameData, setGameData }) {
         </div>
       ),
       footerElements: (
-        <Button
-          className="border-solid bg-sky-600"
-          onClick={() =>
-            shareStatus(
-              gameData,
-              submittedGuesses,
-              handleShareToClipboard,
-              handleShareFailure
-            )
-          }
-        >
-          Share
-        </Button>
+        <Sparkles>
+          <Button
+            className="border-solid bg-cyan-600/80 basis-1/2"
+            onClick={() =>
+              shareStatus(
+                gameData,
+                submittedGuesses,
+                handleShareToClipboard,
+                handleShareFailure
+              )
+            }
+          >
+            Share
+          </Button>
+        </Sparkles>
       ),
     });
 
     setIsGameOver(true);
+    setIsGameWon(false);
   }, [submittedGuesses]);
 
   function deselectAll() {
@@ -238,6 +247,7 @@ function Game({ gameData, setGameData }) {
           isGameOver={isGameOver}
           shouldGridShake={gridShake}
           setShouldGridShake={setGridShake}
+          gameData={gameData}
         />
         {showConfetti && isGameOver && (
           <div className="grid place-content-center">

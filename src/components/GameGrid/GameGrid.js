@@ -62,10 +62,10 @@ function GameGrid({
   isGameOver,
   shouldGridShake,
   setShouldGridShake,
+  gameData,
 }) {
   React.useEffect(() => {
     const shakeEffect = window.setTimeout(() => {
-      console.log("turning off shake");
       setShouldGridShake(false);
       // this timeout should probably be calculated since it depends on animation values
     }, 2000);
@@ -93,6 +93,14 @@ function GameGrid({
                 guessCandidate={guessCandidate}
               />
             ))}
+        </div>
+      )}
+      {isGameOver && solvedGameData.length < gameData.length && (
+        <div className="grid gap-y-2 pb-2">
+          <p>The correct answers are below.</p>
+          {gameData.map((obj) => (
+            <SolvedWordRow key={obj.category} {...obj} />
+          ))}
         </div>
       )}
     </div>
