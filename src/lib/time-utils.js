@@ -22,7 +22,7 @@ export const periodInDays = 10;
 
 export const getLastGameDate = (today) => {
   const t = startOfDay(today);
-  let daysSinceLastGame = differenceInDays(firstGameDate, t) % periodInDays;
+  let daysSinceLastGame = differenceInDays(t, firstGameDate) % periodInDays;
   return addDays(t, -daysSinceLastGame);
 };
 
