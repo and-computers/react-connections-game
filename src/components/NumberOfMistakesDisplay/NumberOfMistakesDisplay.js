@@ -1,5 +1,5 @@
 import React from "react";
-import { range } from "../../utils";
+import { range } from "../../lib/utils";
 import { Circle, CircleSlash } from "lucide-react";
 
 function SingleMistakeDisplay({ isUsed }) {

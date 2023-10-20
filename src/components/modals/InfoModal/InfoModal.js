@@ -1,5 +1,5 @@
 import React from "react";
-import { MAX_MISTAKES } from "../../../constants";
+import { MAX_MISTAKES } from "../../../lib/constants";
 import { Info } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import {

@@ -2,6 +2,7 @@ import React from "react";
 import BaseModal from "../BaseModal";
 import { SolvedWordRow } from "../../GameGrid";
 import ShareScoreButton from "../../ShareScoreButton";
+import CountdownToNextPuzzle from "../../CountdownToNextPuzzle";
 
 function GameLostModal({ open, gameData, submittedGuesses }) {
   return (
@@ -23,6 +24,7 @@ function GameLostModal({ open, gameData, submittedGuesses }) {
           <SolvedWordRow key={obj.category} {...obj} />
         ))}
       </div>
+      <CountdownToNextPuzzle />
     </BaseModal>
   );
 }

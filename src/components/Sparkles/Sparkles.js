@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 
-import { range, random } from "../../utils";
+import { range, random } from "../../lib/utils";
 import usePrefersReducedMotion from "../../hooks/use-prefers-reduced-motion.hook";
 import useRandomInterval from "../../hooks/use-random-interval.hook";
 

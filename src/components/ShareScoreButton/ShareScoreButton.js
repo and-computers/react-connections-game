@@ -2,7 +2,7 @@ import React from "react";
 import Sparkles from "../Sparkles";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
-import { shareStatus } from "../../game-helpers";
+import { shareStatus } from "../../lib/game-helpers";
 
 function ShareScoreButton({ gameData, submittedGuesses }) {
   const { toast } = useToast();

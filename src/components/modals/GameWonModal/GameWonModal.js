@@ -1,9 +1,9 @@
 import React from "react";
 import BaseModal from "../BaseModal";
-import Sparkles from "../../Sparkles";
 
-import { generateEmojiGrid } from "../../../game-helpers";
+import { generateEmojiGrid } from "../../../lib/game-helpers";
 import ShareScoreButton from "../../ShareScoreButton";
+import CountdownToNextPuzzle from "../../CountdownToNextPuzzle";
 
 function GameWonModal({ open, gameData, submittedGuesses }) {
   return (
@@ -24,6 +24,7 @@ function GameWonModal({ open, gameData, submittedGuesses }) {
           {"\n"}
           {generateEmojiGrid(gameData, submittedGuesses)}
         </span>
+        <CountdownToNextPuzzle />
       </div>
     </BaseModal>
   );

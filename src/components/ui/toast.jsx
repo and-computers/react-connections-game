@@ -4,7 +4,7 @@ import * as Portal from "@radix-ui/react-portal";
 import { cva } from "class-variance-authority";
 import { X } from "lucide-react";
 
-import { cn } from "../../utils";
+import { cn } from "../../lib/utils";
 
 const ToastProvider = ToastPrimitives.Provider;
 

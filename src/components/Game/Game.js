@@ -1,12 +1,12 @@
 import React from "react";
-import { MAX_MISTAKES } from "../../constants";
+import { MAX_MISTAKES } from "../../lib/constants";
 import {
   generateEmojiGrid,
   shuffleGameData,
   isGuessRepeated,
   isGuessCorrect,
   shareStatus,
-} from "../../game-helpers";
+} from "../../lib/game-helpers";
 import GameGrid from "../GameGrid";
 import NumberOfMistakesDisplay from "../NumberOfMistakesDisplay";
 import GameLostModal from "../modals/GameLostModal";
