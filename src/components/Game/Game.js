@@ -21,63 +21,67 @@ import ConfettiExplosion from "react-confetti-explosion";
 import { Shuffle, Undo, SendHorizontal } from "lucide-react";
 
 import { PuzzleDataContext } from "../../providers/PuzzleDataProvider";
+import { GameStatusContext } from "../../providers/GameStatusProvider";
 
 function Game() {
   const { gameData } = React.useContext(PuzzleDataContext);
-  const [guessCandidate, setGuessCandidate] = React.useState([]);
-  const [submittedGuesses, setSubmittedGuesses] = React.useState([]);
+  const {
+    guessCandidate,
+    setGuessCandidate,
+    submittedGuesses,
+    setSubmittedGuesses,
+    solvedGameData,
+    setSolvedGameData,
+    isGameOver,
+    isGameWon,
+  } = React.useContext(GameStatusContext);
+
   const [shuffledRows, setShuffledRows] = React.useState(
     shuffleGameData({ gameData })
   );
-  const [solvedGameData, setSolvedGameData] = React.useState([]);
-  const [isGameOver, setIsGameOver] = React.useState(false);
   const [isEndGameModalOpen, setisEndGameModalOpen] = React.useState(false);
   const [gridShake, setGridShake] = React.useState(false);
   const [showConfetti, setShowConfetti] = React.useState(false);
-  const [isGameWon, setIsGameWon] = React.useState(false);
 
   const categorySize = gameData[0].words.length;
   const numCategories = gameData.length;
-  const numMistakesUsed = submittedGuesses.length - solvedGameData.length;
 
   const { toast } = useToast();
 
   // use effect to update Game Grid after a row has been correctly solved
-  // end game if all rows have been solved
   React.useEffect(() => {
-    if (solvedGameData.length === gameData.length) {
-      const delayModalOpen = window.setTimeout(() => {
-        setisEndGameModalOpen(true);
-        // unmount confetti as well
-        setShowConfetti(false);
-      }, 2000);
-
-      setIsGameOver(true);
-      setIsGameWon(true);
-      setShowConfetti(true);
-
-      return () => window.clearTimeout(delayModalOpen);
-    }
     const categoriesToRemoveFromRows = solvedGameData.map(
       (data) => data.category
     );
     const dataLeftForRows = gameData.filter((data) => {
       return !categoriesToRemoveFromRows.includes(data.category);
     });
-    setShuffledRows(shuffleGameData({ gameData: dataLeftForRows }));
+    if (dataLeftForRows.length > 0) {
+      setShuffledRows(shuffleGameData({ gameData: dataLeftForRows }));
+    }
   }, [solvedGameData]);
 
-  // use effect to check if all mistakes have been used and end the game accordingly
+  // Handle End Game!
   React.useEffect(() => {
-    if (numMistakesUsed < MAX_MISTAKES) {
+    if (!isGameOver) {
       return;
     }
 
-    setisEndGameModalOpen(true);
+    // extra delay for game won to allow confetti to show
+    const modalDelay = isGameWon ? 2000 : 250;
 
-    setIsGameOver(true);
-    setIsGameWon(false);
-  }, [submittedGuesses]);
+    const delayModalOpen = window.setTimeout(() => {
+      setisEndGameModalOpen(true);
+      //unmount confetti after modal opens
+      setShowConfetti(false);
+    }, modalDelay);
+
+    if (isGameWon) {
+      setShowConfetti(true);
+    }
+
+    return () => window.clearTimeout(delayModalOpen);
+  }, [isGameOver]);
 
   function deselectAll() {
     setGuessCandidate([]);
@@ -123,10 +127,6 @@ function Game() {
           difficulty: correctDifficulty,
         },
       ]);
-      const dataLeftForRows = gameData.filter((dataObj) => {
-        return dataObj.category !== correctCategory;
-      });
-      setShuffledRows(shuffleGameData({ gameData: dataLeftForRows }));
       setGuessCandidate([]);
     } else {
       // Shake the grid to give feedback that they were wrong
@@ -161,12 +161,7 @@ function Game() {
           />
         )}
         <GameGrid
-          solvedGameData={solvedGameData}
           gameRows={shuffledRows}
-          submittedGuesses={submittedGuesses}
-          guessCandidate={guessCandidate}
-          setGuessCandidate={setGuessCandidate}
-          isGameOver={isGameOver}
           shouldGridShake={gridShake}
           setShouldGridShake={setGridShake}
         />
@@ -180,10 +175,7 @@ function Game() {
           </div>
         )}
         <Separator />
-        <NumberOfMistakesDisplay
-          maxMistakes={MAX_MISTAKES}
-          numMistakesUsed={numMistakesUsed}
-        />
+        <NumberOfMistakesDisplay />
         <div className="grid grid-cols-3 gap-4">
           <Button
             disabled={isGameOver}

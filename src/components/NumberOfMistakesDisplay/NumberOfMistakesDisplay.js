@@ -1,6 +1,8 @@
 import React from "react";
 import { range } from "../../lib/utils";
 import { Circle, CircleSlash } from "lucide-react";
+import { MAX_MISTAKES } from "../../lib/constants";
+import { GameStatusContext } from "../../providers/GameStatusProvider";
 
 function SingleMistakeDisplay({ isUsed }) {
   return (
@@ -14,9 +16,10 @@ function SingleMistakeDisplay({ isUsed }) {
   );
 }
 
-function NumberOfMistakesDisplay({ maxMistakes, numMistakesUsed }) {
+function NumberOfMistakesDisplay() {
+  const { numMistakesUsed } = React.useContext(GameStatusContext);
   // array size of number of guess. [1, 2, 3, 4]
-  const mistakeRange = range(maxMistakes);
+  const mistakeRange = range(MAX_MISTAKES);
   return (
     <div className="flex flex-row gap-x-4">
       <p className="text-base">Mistakes Remaining: </p>

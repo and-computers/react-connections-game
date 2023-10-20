@@ -2,15 +2,16 @@ import React from "react";
 import * as styles from "./WordButton.module.css";
 import { Toggle } from "../ui/toggle";
 
-function WordButton({
-  word,
-  setGuessCandidate,
-  guessCandidate,
-  fullCandidateSize,
-}) {
+import { GameStatusContext } from "../../providers/GameStatusProvider";
+
+function WordButton({ word, fullCandidateSize }) {
+  const { guessCandidate, setGuessCandidate } =
+    React.useContext(GameStatusContext);
   const [isSelected, setIsSelected] = React.useState(
     !!guessCandidate.includes(word)
   );
+
+  const isCandidateListFull = guessCandidate.length == fullCandidateSize;
 
   React.useEffect(() => {
     setIsSelected(!!guessCandidate.includes(word));
@@ -26,7 +27,8 @@ function WordButton({
       // set state to *not* selected
       setIsSelected(false);
     } else {
-      if (guessCandidate.length < fullCandidateSize) {
+      // check if the candidate array is full
+      if (!isCandidateListFull) {
         // add to candidateGuess array
         setGuessCandidate([...guessCandidate, word]);
         // set state to *selected*

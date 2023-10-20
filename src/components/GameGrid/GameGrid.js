@@ -6,18 +6,13 @@ import * as styles from "./GameGrid.module.css";
 
 import { useSpring, animated } from "react-spring";
 import { PuzzleDataContext } from "../../providers/PuzzleDataProvider";
+import { GameStatusContext } from "../../providers/GameStatusProvider";
 
-function WordRow({ words, setGuessCandidate, guessCandidate }) {
+function WordRow({ words }) {
   return (
     <div className={`grid grid-cols-4 gap-4`}>
       {words.map((word) => (
-        <WordButton
-          key={word}
-          word={word}
-          fullCandidateSize={words.length}
-          setGuessCandidate={setGuessCandidate}
-          guessCandidate={guessCandidate}
-        />
+        <WordButton key={word} word={word} fullCandidateSize={words.length} />
       ))}
     </div>
   );
@@ -54,52 +49,48 @@ export function SolvedWordRow({ ...props }) {
   );
 }
 
-function GameGrid({
-  gameRows,
-  submittedGuesses,
-  guessCandidate,
-  setGuessCandidate,
-  solvedGameData,
-  isGameOver,
-  shouldGridShake,
-  setShouldGridShake,
-}) {
+function GameGrid({ gameRows, shouldGridShake, setShouldGridShake }) {
+  const { submittedGuesses, isGameOver, isGameWon, solvedGameData } =
+    React.useContext(GameStatusContext);
+
   const { gameData } = React.useContext(PuzzleDataContext);
 
   React.useEffect(() => {
     const shakeEffect = window.setTimeout(() => {
       setShouldGridShake(false);
-      // this timeout should probably be calculated since it depends on animation values
+      // this timeout should probably be calculated since it depends on animation values for the grid shake
     }, 2000);
 
     // cleanup timeout
     return () => window.clearTimeout(shakeEffect);
   }, [submittedGuesses]);
+
+  const isGameOverAndLost = isGameOver && !isGameWon;
+  const isGameOverAndWon = isGameOver && isGameWon;
+  const isGameActive = !isGameOver;
+  const isGameActiveWithAnySolvedRows =
+    isGameActive && solvedGameData.length > 0;
+
   return (
     <div>
-      {solvedGameData.length > 0 && (
+      {(isGameOverAndWon || isGameActiveWithAnySolvedRows) && (
         <div className="grid gap-y-2 pb-2">
           {solvedGameData.map((solvedRowObj) => (
             <SolvedWordRow key={solvedRowObj.category} {...solvedRowObj} />
           ))}
         </div>
       )}
-      {!isGameOver && (
-        <div className={`grid gap-y-2 ${shouldGridShake && styles.shake}`}>
-          {!isGameOver &&
-            gameRows.map((row, idx) => (
-              <WordRow
-                key={idx}
-                setGuessCandidate={setGuessCandidate}
-                words={row}
-                guessCandidate={guessCandidate}
-              />
-            ))}
+      {isGameActive && (
+        <div className={`grid gap-y-2 ${shouldGridShake ? styles.shake : ""}`}>
+          {gameRows.map((row, idx) => (
+            <WordRow key={idx} words={row} />
+          ))}
         </div>
       )}
-      {isGameOver && solvedGameData.length < gameData.length && (
+      {/* Show correct answers here after the game is over if they lost */}
+      {isGameOverAndLost && (
         <div className="grid gap-y-2 pb-2">
-          <p>The correct answers are below.</p>
+          <p>The answer categories are below.</p>
           {gameData.map((obj) => (
             <SolvedWordRow key={obj.category} {...obj} />
           ))}
