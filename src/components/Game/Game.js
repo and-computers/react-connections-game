@@ -200,6 +200,7 @@ function Game({ gameData, setGameData }) {
             <p className="select-none">Shuffle</p>
           </Button>
           <Button
+            size="deselectallsize"
             disabled={isGameOver}
             variant="secondary"
             onClick={deselectAll}
