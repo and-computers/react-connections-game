@@ -4,6 +4,8 @@ import WordButton from "../WordButton";
 
 import * as styles from "./GameGrid.module.css";
 
+import { useSpring, animated } from "react-spring";
+
 function WordRow({ words, setGuessCandidate, guessCandidate }) {
   return (
     <div className={`grid grid-cols-4 gap-4`}>
@@ -29,12 +31,25 @@ export function SolvedWordRow({ ...props }) {
   };
 
   const color = `${DIFFICULTY_COLOR_MAP[props.difficulty]}`;
-  console.log(color);
+
+  const springProps = useSpring({
+    from: {
+      opacity: 0,
+      transform: "translateY(100%)",
+    },
+    to: {
+      opacity: 1,
+      transform: "translateY(0%)",
+    },
+    delay: 250,
+  });
   return (
-    <div style={{ backgroundColor: color, borderRadius: 8 }}>
-      <p className="font-bold pt-2 pl-4">{props.category}</p>
-      <p className="font-thin pb-2 pl-4">{props.words.join(", ")}</p>
-    </div>
+    <animated.div style={springProps}>
+      <div style={{ backgroundColor: color, borderRadius: 8 }}>
+        <p className="font-bold pt-2 pl-4">{props.category}</p>
+        <p className="font-thin pb-2 pl-4">{props.words.join(", ")}</p>
+      </div>
+    </animated.div>
   );
 }
 
@@ -59,7 +74,7 @@ function GameGrid({
     return () => window.clearTimeout(shakeEffect);
   }, [submittedGuesses]);
   return (
-    <>
+    <div>
       {solvedGameData.length > 0 && (
         <div className="grid gap-y-2">
           {solvedGameData.map((solvedRowObj) => (
@@ -67,18 +82,20 @@ function GameGrid({
           ))}
         </div>
       )}
-      <div className={`grid gap-y-2 ${shouldGridShake && styles.shake}`}>
-        {!isGameOver &&
-          gameRows.map((row, idx) => (
-            <WordRow
-              key={idx}
-              setGuessCandidate={setGuessCandidate}
-              words={row}
-              guessCandidate={guessCandidate}
-            />
-          ))}
-      </div>
-    </>
+      {!isGameOver && (
+        <div className={`grid gap-y-2 ${shouldGridShake && styles.shake}`}>
+          {!isGameOver &&
+            gameRows.map((row, idx) => (
+              <WordRow
+                key={idx}
+                setGuessCandidate={setGuessCandidate}
+                words={row}
+                guessCandidate={guessCandidate}
+              />
+            ))}
+        </div>
+      )}
+    </div>
   );
 }
 
