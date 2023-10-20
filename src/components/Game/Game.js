@@ -31,7 +31,7 @@ function Game() {
   );
   const [solvedGameData, setSolvedGameData] = React.useState([]);
   const [isGameOver, setIsGameOver] = React.useState(false);
-  const [modalData, setModalData] = React.useState({ open: false });
+  const [isEndGameModalOpen, setisEndGameModalOpen] = React.useState(false);
   const [gridShake, setGridShake] = React.useState(false);
   const [showConfetti, setShowConfetti] = React.useState(false);
   const [isGameWon, setIsGameWon] = React.useState(false);
@@ -47,37 +47,7 @@ function Game() {
   React.useEffect(() => {
     if (solvedGameData.length === gameData.length) {
       const delayModalOpen = window.setTimeout(() => {
-        setModalData({
-          open: true,
-          title: "You won the game!",
-          description: "Great job, share your results!",
-          isGameOver: true,
-          extraElements: (
-            <div className="justify-center">
-              <span style={{ whiteSpace: "pre" }}>
-                {"\n"}
-                {generateEmojiGrid(gameData, submittedGuesses)}
-              </span>
-            </div>
-          ),
-          footerElements: (
-            <Sparkles>
-              <Button
-                variant="share"
-                onClick={() =>
-                  shareStatus(
-                    gameData,
-                    submittedGuesses,
-                    handleShareToClipboard,
-                    handleShareFailure
-                  )
-                }
-              >
-                Share
-              </Button>
-            </Sparkles>
-          ),
-        });
+        setisEndGameModalOpen(true);
         // unmount confetti as well
         setShowConfetti(false);
       }, 2000);
@@ -103,37 +73,7 @@ function Game() {
       return;
     }
 
-    setModalData({
-      open: true,
-      title: "You lost.",
-      description: "Better luck next time.",
-      isGameOver: true,
-      extraElements: (
-        <div className="grid gap-y-2">
-          <p>The correct answers are below.</p>
-          {gameData.map((obj) => (
-            <SolvedWordRow key={obj.category} {...obj} />
-          ))}
-        </div>
-      ),
-      footerElements: (
-        <Sparkles>
-          <Button
-            variant="share"
-            onClick={() =>
-              shareStatus(
-                gameData,
-                submittedGuesses,
-                handleShareToClipboard,
-                handleShareFailure
-              )
-            }
-          >
-            Share
-          </Button>
-        </Sparkles>
-      ),
-    });
+    setisEndGameModalOpen(true);
 
     setIsGameOver(true);
     setIsGameWon(false);
@@ -211,12 +151,12 @@ function Game() {
       <div className={`game-wrapper`}>
         {isGameOver && isGameWon ? (
           <GameWonModal
-            open={modalData.open}
+            open={isEndGameModalOpen}
             submittedGuesses={submittedGuesses}
           />
         ) : (
           <GameLostModal
-            open={modalData.open}
+            open={isEndGameModalOpen}
             submittedGuesses={submittedGuesses}
           />
         )}
