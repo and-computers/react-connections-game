@@ -1,7 +1,7 @@
 .shake {
   animation-name: tilt-shaking;
   animation-duration: 0.1s;
-  animation-delay: 0.5s;
+  animation-delay: 0.2s;
   animation-iteration-count: 5;
 }
 
@@ -29,16 +29,16 @@
 
 @keyframes tilt-shaking {
   0% {
-    transform: rotate(0.5deg);
+    transform: rotate(0deg);
   }
   25% {
     transform: rotate(1deg);
   }
   50% {
-    transform: rotate(0eg);
+    transform: rotate(0deg);
   }
   75% {
-    transform: rotate(-0.5deg);
+    transform: rotate(-1deg);
   }
   100% {
     transform: rotate(0deg);
