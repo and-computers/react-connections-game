@@ -20,7 +20,10 @@ import { useToast } from "../ui/use-toast";
 import ConfettiExplosion from "react-confetti-explosion";
 import { Shuffle, Undo, SendHorizontal } from "lucide-react";
 
-function Game({ gameData, setGameData }) {
+import { PuzzleDataContext } from "../../providers/PuzzleDataProvider";
+
+function Game() {
+  const { gameData } = React.useContext(PuzzleDataContext);
   const [guessCandidate, setGuessCandidate] = React.useState([]);
   const [submittedGuesses, setSubmittedGuesses] = React.useState([]);
   const [shuffledRows, setShuffledRows] = React.useState(
@@ -169,14 +172,6 @@ function Game({ gameData, setGameData }) {
       gameData,
     });
 
-    console.log({
-      isCorrect,
-      correctWords,
-      correctCategory,
-      isGuessOneAway,
-      correctDifficulty,
-    });
-
     // if the guess is correct:
     // set it as solved in game data
     if (isCorrect) {
@@ -214,30 +209,14 @@ function Game({ gameData, setGameData }) {
       </h4>
 
       <div className={`game-wrapper`}>
-        {/* <Modal
-          title={modalData.title}
-          initiallyOpen={modalData.open}
-          footerElements={modalData.footerElements}
-          continueButtonText="Done"
-        >
-          {modalData.description}
-          {modalData.extraElements}
-        </Modal> */}
-        {/* <DynamicModalComponent
-          open={modalData.open}
-          gameData={gameData}
-          submittedGuesses={submittedGuesses}
-        /> */}
         {isGameOver && isGameWon ? (
           <GameWonModal
             open={modalData.open}
-            gameData={gameData}
             submittedGuesses={submittedGuesses}
           />
         ) : (
           <GameLostModal
             open={modalData.open}
-            gameData={gameData}
             submittedGuesses={submittedGuesses}
           />
         )}
@@ -250,7 +229,6 @@ function Game({ gameData, setGameData }) {
           isGameOver={isGameOver}
           shouldGridShake={gridShake}
           setShouldGridShake={setGridShake}
-          gameData={gameData}
         />
         {showConfetti && isGameOver && (
           <div className="grid place-content-center">

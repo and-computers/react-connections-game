@@ -5,6 +5,7 @@ import WordButton from "../WordButton";
 import * as styles from "./GameGrid.module.css";
 
 import { useSpring, animated } from "react-spring";
+import { PuzzleDataContext } from "../../providers/PuzzleDataProvider";
 
 function WordRow({ words, setGuessCandidate, guessCandidate }) {
   return (
@@ -62,8 +63,9 @@ function GameGrid({
   isGameOver,
   shouldGridShake,
   setShouldGridShake,
-  gameData,
 }) {
+  const { gameData } = React.useContext(PuzzleDataContext);
+
   React.useEffect(() => {
     const shakeEffect = window.setTimeout(() => {
       setShouldGridShake(false);

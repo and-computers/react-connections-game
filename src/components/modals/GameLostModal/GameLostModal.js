@@ -3,8 +3,11 @@ import BaseModal from "../BaseModal";
 import { SolvedWordRow } from "../../GameGrid";
 import ShareScoreButton from "../../ShareScoreButton";
 import CountdownToNextPuzzle from "../../CountdownToNextPuzzle";
+import { PuzzleDataContext } from "../../../providers/PuzzleDataProvider";
 
-function GameLostModal({ open, gameData, submittedGuesses }) {
+function GameLostModal({ open, submittedGuesses }) {
+  const { gameData } = React.useContext(PuzzleDataContext);
+
   return (
     <BaseModal
       title="You lost."
