@@ -22,7 +22,8 @@
     "react-spring": "^9.7.3",
     "rimraf": "5.0.1",
     "tailwind-merge": "^1.14.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "ua-parser-js": "^1.0.36"
   },
   "scripts": {
     "predev": "rimraf .parcel-cache dist",
