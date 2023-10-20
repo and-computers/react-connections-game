@@ -90,6 +90,7 @@ const Wrapper = styled.span`
 const SparkleWrapper = styled.span`
   position: absolute;
   display: block;
+  pointer-events: none;
   @media (prefers-reduced-motion: no-preference) {
     animation: ${comeInOut} 700ms forwards;
   }

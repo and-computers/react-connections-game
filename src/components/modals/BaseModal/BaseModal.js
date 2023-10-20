@@ -10,9 +10,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "../ui/alert-dialog";
+} from "../../ui/alert-dialog";
 
-function Modal({
+function BaseModal({
   title = "title",
   continueButtonText = "Continue",
   trigger = undefined,
@@ -55,4 +55,4 @@ function Modal({
   );
 }
 
-export default Modal;
+export default BaseModal;

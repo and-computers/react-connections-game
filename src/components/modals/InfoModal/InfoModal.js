@@ -1,18 +1,18 @@
 import React from "react";
-import { MAX_MISTAKES } from "../../constants";
+import { MAX_MISTAKES } from "../../../constants";
 import { Info } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "../ui/accordion";
-import Modal from "../Modal";
+} from "../../ui/accordion";
+import BaseModal from "../BaseModal";
 
 function InfoModal() {
   return (
-    <Modal
+    <BaseModal
       title=""
       trigger={<Info className="mr-4" />}
       initiallyOpen={false}
@@ -143,7 +143,7 @@ function InfoModal() {
           </Accordion>
         </TabsContent>
       </Tabs>
-    </Modal>
+    </BaseModal>
   );
 }
 

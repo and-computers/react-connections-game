@@ -1,6 +1,6 @@
 import React from "react";
 
-import InfoModal from "../InfoModal";
+import InfoModal from "../modals/InfoModal";
 
 function Header() {
   return (

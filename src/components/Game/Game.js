@@ -9,7 +9,8 @@ import {
 } from "../../game-helpers";
 import GameGrid from "../GameGrid";
 import NumberOfMistakesDisplay from "../NumberOfMistakesDisplay";
-import Modal from "../Modal";
+import GameLostModal from "../modals/GameLostModal";
+import GameWonModal from "../modals/GameWonModal";
 import Sparkles from "../Sparkles";
 import { SolvedWordRow } from "../GameGrid";
 
@@ -59,7 +60,7 @@ function Game({ gameData, setGameData }) {
           footerElements: (
             <Sparkles>
               <Button
-                className="border-solid bg-cyan-600/80 basis-1/2"
+                variant="share"
                 onClick={() =>
                   shareStatus(
                     gameData,
@@ -93,21 +94,6 @@ function Game({ gameData, setGameData }) {
     setShuffledRows(shuffleGameData({ gameData: dataLeftForRows }));
   }, [solvedGameData]);
 
-  function handleShareToClipboard() {
-    toast({
-      label: "Notification",
-      title: "",
-      description: "Copied to clipboard!",
-    });
-  }
-  function handleShareFailure() {
-    toast({
-      label: "Notification",
-      title: "",
-      description: "Was unable to copy to clipboard / share.",
-    });
-  }
-
   // use effect to check if all mistakes have been used and end the game accordingly
   React.useEffect(() => {
     if (numMistakesUsed < MAX_MISTAKES) {
@@ -130,7 +116,7 @@ function Game({ gameData, setGameData }) {
       footerElements: (
         <Sparkles>
           <Button
-            className="border-solid bg-cyan-600/80 basis-1/2"
+            variant="share"
             onClick={() =>
               shareStatus(
                 gameData,
@@ -228,7 +214,7 @@ function Game({ gameData, setGameData }) {
       </h4>
 
       <div className={`game-wrapper`}>
-        <Modal
+        {/* <Modal
           title={modalData.title}
           initiallyOpen={modalData.open}
           footerElements={modalData.footerElements}
@@ -236,8 +222,25 @@ function Game({ gameData, setGameData }) {
         >
           {modalData.description}
           {modalData.extraElements}
-        </Modal>
-
+        </Modal> */}
+        {/* <DynamicModalComponent
+          open={modalData.open}
+          gameData={gameData}
+          submittedGuesses={submittedGuesses}
+        /> */}
+        {isGameOver && isGameWon ? (
+          <GameWonModal
+            open={modalData.open}
+            gameData={gameData}
+            submittedGuesses={submittedGuesses}
+          />
+        ) : (
+          <GameLostModal
+            open={modalData.open}
+            gameData={gameData}
+            submittedGuesses={submittedGuesses}
+          />
+        )}
         <GameGrid
           solvedGameData={solvedGameData}
           gameRows={shuffledRows}
