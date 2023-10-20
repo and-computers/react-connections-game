@@ -9,6 +9,11 @@ export function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+//https://www.joshwcomeau.com/snippets/javascript/random/
+export const random = (min, max) =>
+  Math.floor(Math.random() * (max - min)) + min;
+
+// https://www.joshwcomeau.com/snippets/javascript/range/
 export const range = (start, end, step = 1) => {
   let output = [];
   if (typeof end === "undefined") {
@@ -25,6 +30,7 @@ export const sample = (arr) => {
   return arr[Math.floor(Math.random() * arr.length)];
 };
 
+// https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 export const shuffle = (array) => {
   let currentIndex = array.length,
     randomIndex;
