@@ -76,7 +76,7 @@ function GameGrid({
   return (
     <div>
       {solvedGameData.length > 0 && (
-        <div className="grid gap-y-2">
+        <div className="grid gap-y-2 pb-2">
           {solvedGameData.map((solvedRowObj) => (
             <SolvedWordRow key={solvedRowObj.category} {...solvedRowObj} />
           ))}
