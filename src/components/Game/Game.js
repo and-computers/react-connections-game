@@ -1,9 +1,11 @@
 import React from "react";
 import { MAX_MISTAKES } from "../../constants";
 import {
+  generateEmojiGrid,
   shuffleGameData,
   isGuessRepeated,
   isGuessCorrect,
+  shareStatus,
 } from "../../game-helpers";
 import GameGrid from "../GameGrid";
 import { SolvedWordRow } from "../GameGrid";
@@ -13,7 +15,6 @@ import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { useToast } from "../ui/use-toast";
 import ConfettiExplosion from "react-confetti-explosion";
-import { sleep } from "../../utils";
 import { Shuffle, Undo, SendHorizontal } from "lucide-react";
 
 function Game({ gameData, setGameData }) {
@@ -44,6 +45,29 @@ function Game({ gameData, setGameData }) {
           title: "You won the game!",
           description: "Great job, share your results!",
           isGameOver: true,
+          extraElements: (
+            <div className="justify-center">
+              <span style={{ whiteSpace: "pre" }}>
+                {"\n"}
+                {generateEmojiGrid(gameData, submittedGuesses)}
+              </span>
+            </div>
+          ),
+          footerElements: (
+            <Button
+              className="border-solid bg-cyan-600/80"
+              onClick={() =>
+                shareStatus(
+                  gameData,
+                  submittedGuesses,
+                  handleShareToClipboard,
+                  handleShareFailure
+                )
+              }
+            >
+              Share
+            </Button>
+          ),
         });
         // unmount confetti as well
         setShowConfetti(false);
@@ -63,6 +87,21 @@ function Game({ gameData, setGameData }) {
     setShuffledRows(shuffleGameData({ gameData: dataLeftForRows }));
   }, [solvedGameData]);
 
+  function handleShareToClipboard() {
+    toast({
+      label: "Notification",
+      title: "",
+      description: "Copied to clipboard!",
+    });
+  }
+  function handleShareFailure() {
+    toast({
+      label: "Notification",
+      title: "",
+      description: "Was unable to copy to clipboard / share.",
+    });
+  }
+
   // use effect to check if all mistakes have been used and end the game accordingly
   React.useEffect(() => {
     if (numMistakesUsed < MAX_MISTAKES) {
@@ -81,6 +120,21 @@ function Game({ gameData, setGameData }) {
             <SolvedWordRow key={obj.category} {...obj} />
           ))}
         </div>
+      ),
+      footerElements: (
+        <Button
+          className="border-solid bg-sky-600"
+          onClick={() =>
+            shareStatus(
+              gameData,
+              submittedGuesses,
+              handleShareToClipboard,
+              handleShareFailure
+            )
+          }
+        >
+          Share
+        </Button>
       ),
     });
 
@@ -152,7 +206,7 @@ function Game({ gameData, setGameData }) {
           label: "Notification",
           title: "Close Guess",
           description:
-            "You we're one guess away from correctly guessing a category!",
+            "You were one guess away from correctly guessing a category!",
         });
       }
     }
@@ -165,7 +219,12 @@ function Game({ gameData, setGameData }) {
       </h4>
 
       <div className={`game-wrapper`}>
-        <Modal title={modalData.title} initiallyOpen={modalData.open}>
+        <Modal
+          title={modalData.title}
+          initiallyOpen={modalData.open}
+          footerElements={modalData.footerElements}
+          continueButtonText="Done"
+        >
           {modalData.description}
           {modalData.extraElements}
         </Modal>
