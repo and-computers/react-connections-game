@@ -64,10 +64,10 @@ export const getSolution = (gameDate) => {
   const puzzleOfTheDay = getPuzzleOfDay(index);
   console.log("index for today: ", index);
   return {
-    solution: puzzleOfTheDay,
-    solutionGameDate: gameDate,
-    solutionIndex: index,
-    dateOfNextGame: nextGameDate.valueOf(),
+    puzzleAnswers: puzzleOfTheDay,
+    puzzleGameDate: gameDate,
+    puzzleIndex: index,
+    dateOfNextPuzzle: nextGameDate.valueOf(),
   };
 };
 
@@ -106,5 +106,5 @@ export const getIsLatestGame = () => {
   return parsed === null || !("d" in parsed);
 };
 
-export const { solution, solutionGameDate, solutionIndex, dateOfNextGame } =
+export const { puzzleAnswers, puzzleGameDate, puzzleIndex, dateOfNextPuzzle } =
   getSolution(getGameDate());

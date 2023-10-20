@@ -1,6 +1,6 @@
 import React from "react";
 import Countdown from "react-countdown";
-import { dateOfNextGame } from "../../lib/time-utils";
+import { dateOfNextPuzzle } from "../../lib/time-utils";
 
 // Renderer callback with condition
 const renderer = ({ days, hours, minutes, seconds, completed }) => {
@@ -16,7 +16,7 @@ function CountdownToNextPuzzle() {
       <Countdown
         className="text-lg text-gray-900"
         renderer={renderer}
-        date={dateOfNextGame}
+        date={dateOfNextPuzzle}
         intervalDelay={1000}
       />
     </div>

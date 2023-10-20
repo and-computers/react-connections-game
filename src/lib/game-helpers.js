@@ -8,7 +8,7 @@ import {
 } from "./utils";
 
 import { GAME_TITLE, GAME_URL } from "./constants";
-import { solutionIndex } from "./time-utils";
+import { puzzleIndex } from "./time-utils";
 
 export function shuffleGameData({ gameData }) {
   let categorySize;
@@ -44,7 +44,6 @@ export function isGuessCorrect({ gameData, guessCandidate }) {
     correctDifficulty = gameData[i].difficulty;
 
     if (doArraysHaveSameValues(guessCandidate, correctWords)) {
-      console.log("correct guess!");
       isCorrect = true;
       return {
         isCorrect,
@@ -94,8 +93,8 @@ export const shareStatus = (
   handleShareFailure
 ) => {
   const textToShare =
-    `${GAME_TITLE} #${solutionIndex}\n\n` +
-    generateEmojiGrid(gameData, submittedGuesses, getEmojiTiles());
+    `${GAME_TITLE} #${puzzleIndex}\n\n` +
+    generateEmojiGrid(gameData, submittedGuesses, true);
 
   const shareData = { text: textToShare };
 
@@ -129,9 +128,10 @@ export const shareStatus = (
 export const generateEmojiGrid = (
   gameData,
   submittedGuesses,
-  tiles = getEmojiTiles()
+  includeGameLink = false
 ) => {
   const wordToDifficultyMap = {};
+  const tiles = getEmojiTiles();
 
   const numCategories = gameData.length;
   const allWords = [];
@@ -169,7 +169,9 @@ export const generateEmojiGrid = (
     allEmojiRowsArray.push(emojiRowForGuess);
   }
 
-  return allEmojiRowsArray.join("\n") + "\n\n" + GAME_URL;
+  return `${allEmojiRowsArray.join("\n")}${
+    includeGameLink ? "\n\n" + GAME_URL : ""
+  }`;
 };
 
 const attemptShare = (shareData) => {
