@@ -45,6 +45,8 @@ function Game({ gameData, setGameData }) {
           description: "Great job, share your results!",
           isGameOver: true,
         });
+        // unmount confetti as well
+        setShowConfetti(false);
       }, 2000);
 
       setIsGameOver(true);
@@ -180,7 +182,11 @@ function Game({ gameData, setGameData }) {
         />
         {showConfetti && isGameOver && (
           <div className="grid place-content-center">
-            <ConfettiExplosion particleCount={75} force={0.7} duration={2500} />
+            <ConfettiExplosion
+              particleCount={100}
+              force={0.8}
+              duration={2500}
+            />
           </div>
         )}
         <Separator />
