@@ -2,7 +2,7 @@ import React from "react";
 
 import WordButton from "../WordButton";
 
-import styles from "./GameGrid.module.css";
+import * as styles from "./GameGrid.module.css";
 
 function WordRow({ words, setGuessCandidate, guessCandidate }) {
   return (

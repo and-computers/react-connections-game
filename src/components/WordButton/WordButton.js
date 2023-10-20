@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./WordButton.module.css";
+import * as styles from "./WordButton.module.css";
 import { Toggle } from "../ui/toggle";
 
 function WordButton({
