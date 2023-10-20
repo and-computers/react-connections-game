@@ -1,10 +1,15 @@
 import React from "react";
+import { cn } from "../../lib/utils";
 import Sparkles from "../Sparkles";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
 import { shareStatus } from "../../lib/game-helpers";
+import { GameStatusContext } from "../../providers/GameStatusProvider";
+import { PuzzleDataContext } from "../../providers/PuzzleDataProvider";
 
-function ShareScoreButton({ gameData, submittedGuesses }) {
+function ShareScoreButton({ buttonText = "Share", className = "" }) {
+  const { gameData } = React.useContext(PuzzleDataContext);
+  const { submittedGuesses } = React.useContext(GameStatusContext);
   const { toast } = useToast();
   function handleShareToClipboard() {
     toast({
@@ -23,6 +28,7 @@ function ShareScoreButton({ gameData, submittedGuesses }) {
   return (
     <Sparkles>
       <Button
+        className={cn(className, "w-full")}
         variant="share"
         onClick={() =>
           shareStatus(
@@ -33,7 +39,7 @@ function ShareScoreButton({ gameData, submittedGuesses }) {
           )
         }
       >
-        Share
+        {buttonText}
       </Button>
     </Sparkles>
   );
