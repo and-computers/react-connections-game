@@ -16,7 +16,7 @@ function InfoModal() {
       title=""
       trigger={<Info className="mr-4" />}
       initiallyOpen={false}
-      continueButtonText="Got It!"
+      actionButtonText="Got It!"
     >
       <Tabs defaultValue="how-to-play">
         <TabsList className="grid w-full grid-cols-2">

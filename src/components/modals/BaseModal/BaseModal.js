@@ -14,11 +14,12 @@ import {
 
 function BaseModal({
   title = "title",
-  continueButtonText = "Continue",
   trigger = undefined,
   initiallyOpen = true,
   footerElements,
   children,
+  actionButtonText = "Continue",
+  showActionButton = true,
 }) {
   const [isOpen, setIsOpen] = React.useState(initiallyOpen);
 
@@ -46,9 +47,11 @@ function BaseModal({
         </AlertDialogHeader>
         <AlertDialogFooter>
           {footerElements}
-          <AlertDialogAction onClick={() => setIsOpen(false)}>
-            {continueButtonText}
-          </AlertDialogAction>
+          {showActionButton && (
+            <AlertDialogAction onClick={() => setIsOpen(false)}>
+              {actionButtonText}
+            </AlertDialogAction>
+          )}
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

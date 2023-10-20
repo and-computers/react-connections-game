@@ -13,18 +13,13 @@ function GameWonModal({ open, submittedGuesses }) {
     <BaseModal
       title="You won the game!"
       initiallyOpen={open}
-      footerElements={
-        <ShareScoreButton
-          gameData={gameData}
-          submittedGuesses={submittedGuesses}
-        />
-      }
-      continueButtonText="Done"
+      footerElements={<ShareScoreButton />}
+      showActionButton={false}
     >
       <p>{"Great job, share your results!"}</p>
       <div className="justify-center">
         {/* the whitespace: pre style makes the emoji grid appear with new lines character */}
-        <span style={{ whiteSpace: "pre" }}>
+        <span className="text-center whitespace-pre">
           {"\n"}
           {generateEmojiGrid(gameData, submittedGuesses, false)}
         </span>
