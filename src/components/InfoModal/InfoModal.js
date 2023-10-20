@@ -42,7 +42,7 @@ function InfoModal() {
             <AccordionItem value="item-3">
               <AccordionTrigger>How Many Tries Do I Get?</AccordionTrigger>
               <AccordionContent>
-                {`You have ${MAX_MISTAKES} guesses before the game ends.`}
+                {`You can make ${MAX_MISTAKES} mistakes before the game ends.`}
               </AccordionContent>
             </AccordionItem>
           </Accordion>
