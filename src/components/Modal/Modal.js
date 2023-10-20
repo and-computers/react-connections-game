@@ -17,17 +17,25 @@ function Modal({
   continueButtonText = "Continue",
   trigger = undefined,
   initiallyOpen = true,
+  footerElements,
   children,
 }) {
   const [isOpen, setIsOpen] = React.useState(initiallyOpen);
+
   React.useEffect(() => {
     setIsOpen(initiallyOpen);
   }, [initiallyOpen]);
+
+  function handleCloseEvent() {
+    setIsOpen(false);
+  }
+
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       {!!trigger && <AlertDialogTrigger>{trigger}</AlertDialogTrigger>}
       <AlertDialogContent
-        onEscapeKeyDown={setIsOpen}
+        handleMouseDownOnOverlay={handleCloseEvent}
+        onEscapeKeyDown={handleCloseEvent}
         onCloseAutoFocus={(e) => {
           e.preventDefault();
         }}
@@ -37,6 +45,7 @@ function Modal({
           <AlertDialogDescription>{children}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
+          {footerElements}
           <AlertDialogAction onClick={() => setIsOpen(false)}>
             {continueButtonText}
           </AlertDialogAction>
