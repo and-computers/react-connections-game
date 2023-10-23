@@ -3,7 +3,7 @@ import { cn } from "../../lib/utils";
 import Sparkles from "../Sparkles";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
-import { shareStatus } from "../../lib/game-helpers";
+import { shareStatus } from "../../lib/share-game";
 import { GameStatusContext } from "../../providers/GameStatusProvider";
 import { PuzzleDataContext } from "../../providers/PuzzleDataProvider";
 

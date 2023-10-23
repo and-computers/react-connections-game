@@ -1,5 +1,3 @@
-import { UAParser } from "ua-parser-js";
-
 import {
   shuffle,
   chunk,
@@ -7,17 +5,9 @@ import {
   differenceOfArrays,
 } from "./utils";
 
-import { GAME_TITLE, GAME_URL } from "./constants";
-import { puzzleIndex } from "./time-utils";
+import { GAME_URL } from "./constants";
 
-export function shuffleGameData({ gameData }) {
-  let categorySize;
-  if (gameData[0]?.words) {
-    categorySize = gameData[0].words.length;
-  } else {
-    categorySize = gameData[0].length;
-  }
-
+function getAllWordsOfGameData({ gameData }) {
   const numCategories = gameData.length;
   let allWords = [];
   for (let i = 0; i < numCategories; i++) {
@@ -27,8 +17,20 @@ export function shuffleGameData({ gameData }) {
       allWords.push(gameData[i]);
     }
   }
+  return allWords.flat();
+}
 
-  return chunk(categorySize, shuffle(allWords.flat()));
+export function shuffleGameData({ gameData }) {
+  let categorySize;
+  if (gameData[0]?.words) {
+    categorySize = gameData[0].words.length;
+  } else {
+    categorySize = gameData[0].length;
+  }
+
+  const allWordsFlattened = getAllWordsOfGameData({ gameData });
+
+  return chunk(categorySize, shuffle(allWordsFlattened));
 }
 
 export function isGuessCorrect({ gameData, guessCandidate }) {
@@ -80,50 +82,37 @@ export function isGuessRepeated({ submittedGuesses, guessCandidate }) {
   return false;
 }
 
-// Share logic from here: https://github.com/cwackerfuss/react-wordle/blob/main/src/lib/share.ts
-const webShareApiDeviceTypes = ["mobile", "smarttv", "wearable"];
-const parser = new UAParser();
-const browser = parser.getBrowser();
-const device = parser.getDevice();
-
-export const shareStatus = (
-  gameData,
-  submittedGuesses,
-  handleShareToClipboard,
-  handleShareFailure
-) => {
-  const textToShare =
-    `${GAME_TITLE} #${puzzleIndex}\n\n` +
-    generateEmojiGrid(gameData, submittedGuesses, true);
-
-  const shareData = { text: textToShare };
-
-  let shareSuccess = false;
-
-  try {
-    if (attemptShare(shareData)) {
-      navigator.share(shareData);
-      shareSuccess = true;
+export function isGameDataEquivalent({ gd1, gd2 }) {
+  if (gd1 == null || gd2 == null) {
+    return false;
+  }
+  if (gd1.length !== gd2.length) {
+    return false;
+  }
+  for (let i = 0; i < gd1.lengthl; i++) {
+    if (!doArraysHaveSameValues(gd1.words[i], gd2.words[i])) {
+      return false;
     }
-  } catch (error) {
-    shareSuccess = false;
+  }
+  return true;
+}
+
+export function isGuessesFromGame({ gameData, submittedGuesses }) {
+  const allGameWordsFlattened = getAllWordsOfGameData({ gameData });
+  const allGuessesFlattened = getAllWordsOfGameData({
+    gameData: submittedGuesses,
+  });
+
+  if (submittedGuesses.length === 0) {
+    return false;
   }
 
-  try {
-    if (!shareSuccess) {
-      if (navigator.clipboard) {
-        navigator.clipboard
-          .writeText(textToShare)
-          .then(handleShareToClipboard)
-          .catch(handleShareFailure);
-      } else {
-        handleShareFailure();
-      }
-    }
-  } catch (error) {
-    handleShareFailure();
-  }
-};
+  const isSubset = allGuessesFlattened.every((val) =>
+    allGameWordsFlattened.includes(val)
+  );
+
+  return isSubset;
+}
 
 export const generateEmojiGrid = (
   gameData,
@@ -174,22 +163,11 @@ export const generateEmojiGrid = (
   }`;
 };
 
-const attemptShare = (shareData) => {
-  return (
-    // Deliberately exclude Firefox Mobile, because its Web Share API isn't working correctly
-    browser.name?.toUpperCase().indexOf("FIREFOX") === -1 &&
-    webShareApiDeviceTypes.indexOf(device.type ?? "") !== -1 &&
-    navigator.canShare &&
-    navigator.canShare(shareData) &&
-    navigator.share
-  );
-};
-
-const getEmojiTiles = () => {
+export function getEmojiTiles() {
   let tiles = [];
   tiles.push("🟩");
   tiles.push("🟨");
   tiles.push("🟪");
   tiles.push("🟦");
   return tiles;
-};
+}
