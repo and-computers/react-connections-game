@@ -2,12 +2,12 @@ export const CONNECTION_GAMES = [
   [
     {
       category: "California Rappers",
-      words: ["O'Shea", "Eric", "Lasane", "Todd"],
+      words: ["O'Shea", "Eric", "Lesane", "Todd"],
       difficulty: 1,
     },
     {
-      category: "Famous Hip-Hop Brands",
-      words: ["Andre", "Patek", "Crystal", "Gucci"],
+      category: "Liquor Brands Owned by Rap Artists",
+      words: ["D'ussé", "Effen", "Belair", "Ciroc"],
       difficulty: 2,
     },
     {
@@ -42,6 +42,28 @@ export const CONNECTION_GAMES = [
     {
       category: "Boyz II Men",
       words: ["Michael", "Nathan", "Wanyá", "Shawn"],
+      difficulty: 4,
+    },
+  ],
+  [
+    {
+      category: "Countries in West Africa",
+      words: ["Nigeria", "Cameroon", "Togo", "Benin"],
+      difficulty: 1,
+    },
+    {
+      category: "Countries in East Africa",
+      words: ["Tanzania", "Kenya", "Ethiopia", "Somalia"],
+      difficulty: 2,
+    },
+    {
+      category: "Countries in North Africa",
+      words: ["Morocco", "Algeria", "Tunisia", "Libya"],
+      difficulty: 3,
+    },
+    {
+      category: "African Islands",
+      words: ["Madagascar", "Mauritius", "Comoros", "Mayotte"],
       difficulty: 4,
     },
   ],
