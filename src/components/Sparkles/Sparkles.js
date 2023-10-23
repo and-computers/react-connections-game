@@ -1,3 +1,5 @@
+// https://www.joshwcomeau.com/react/animated-sparkles-in-react/
+
 import React from "react";
 import styled, { keyframes } from "styled-components";
 
