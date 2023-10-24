@@ -37,6 +37,7 @@ export function isGuessCorrect({ gameData, guessCandidate }) {
   let isCorrect = false;
   let correctWords = "";
   let correctCategory = "";
+  let correctImageSrc = null;
   let isGuessOneAway = false;
   let correctDifficulty = null;
   const differencesOfArrays = [];
@@ -44,6 +45,7 @@ export function isGuessCorrect({ gameData, guessCandidate }) {
     correctWords = gameData[i].words;
     correctCategory = gameData[i].category;
     correctDifficulty = gameData[i].difficulty;
+    correctImageSrc = gameData[i].imageSrc;
 
     if (doArraysHaveSameValues(guessCandidate, correctWords)) {
       isCorrect = true;
@@ -53,6 +55,7 @@ export function isGuessCorrect({ gameData, guessCandidate }) {
         correctCategory,
         isGuessOneAway,
         correctDifficulty,
+        correctImageSrc,
       };
     } else {
       // check size of difference, were doing this twice, but no need to optimize for tiny arrays
@@ -67,7 +70,13 @@ export function isGuessCorrect({ gameData, guessCandidate }) {
 
   isGuessOneAway = Math.min(...differencesOfArrays) === 1;
 
-  return { isCorrect, correctWords, correctCategory, isGuessOneAway };
+  return {
+    isCorrect,
+    correctWords,
+    correctCategory,
+    isGuessOneAway,
+    correctImageSrc,
+  };
 }
 
 export function isGuessRepeated({ submittedGuesses, guessCandidate }) {

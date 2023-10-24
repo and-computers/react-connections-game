@@ -8,6 +8,9 @@ import { useSpring, animated } from "react-spring";
 import { PuzzleDataContext } from "../../providers/PuzzleDataProvider";
 import { GameStatusContext } from "../../providers/GameStatusProvider";
 
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Badge } from "../ui/badge";
+
 function WordRow({ words }) {
   return (
     <div className={`grid grid-cols-4 gap-4`}>
@@ -28,6 +31,8 @@ export function SolvedWordRow({ ...props }) {
 
   const color = `${DIFFICULTY_COLOR_MAP[props.difficulty]}`;
 
+  const [hasBeenClicked, setHasBeenClicked] = React.useState(false);
+
   const springProps = useSpring({
     from: {
       opacity: 0,
@@ -39,12 +44,39 @@ export function SolvedWordRow({ ...props }) {
     },
     delay: 250,
   });
+  // if there is an image available render it as a popover
+  const isImageAvailable = props.imageSrc != null;
   return (
     <animated.div style={springProps}>
-      <div style={{ backgroundColor: color, borderRadius: 8 }}>
-        <p className="font-bold pt-2 pl-4">{props.category}</p>
-        <p className="font-thin pb-2 pl-4">{props.words.join(", ")}</p>
-      </div>
+      {!isImageAvailable ? (
+        <div style={{ backgroundColor: color, borderRadius: 8 }}>
+          <p className="font-bold pt-2 pl-4">{props.category}</p>
+          <p className="font-thin pb-2 pl-4">{props.words.join(", ")}</p>
+        </div>
+      ) : (
+        <Popover>
+          <PopoverTrigger asChild>
+            <div
+              className="cursor-pointer hover:animate-pulse shadow-md"
+              style={{ backgroundColor: color, borderRadius: 8 }}
+              onClick={() => setHasBeenClicked(true)}
+            >
+              {!hasBeenClicked && (
+                <Badge className="animate-pulse absolute top-0 right-0 mr-2 mt-2">
+                  View More
+                </Badge>
+              )}
+              <p className="font-bold pt-2 pl-4">{props.category}</p>
+              <p className="font-thin pb-2 pl-4">{props.words.join(", ")}</p>
+            </div>
+          </PopoverTrigger>
+          <PopoverContent>
+            <div>
+              <img src={props.imageSrc} />
+            </div>
+          </PopoverContent>
+        </Popover>
+      )}
     </animated.div>
   );
 }

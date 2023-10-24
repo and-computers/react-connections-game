@@ -56,6 +56,7 @@ function GameControlButtonsPanel({
       correctCategory,
       isGuessOneAway,
       correctDifficulty,
+      correctImageSrc,
     } = isGuessCorrect({
       guessCandidate,
       gameData,
@@ -70,6 +71,7 @@ function GameControlButtonsPanel({
           category: correctCategory,
           words: correctWords,
           difficulty: correctDifficulty,
+          imageSrc: correctImageSrc,
         },
       ]);
       setGuessCandidate([]);
