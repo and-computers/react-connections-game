@@ -14,11 +14,14 @@ export const shareStatus = (
   gameData,
   submittedGuesses,
   handleShareToClipboard,
-  handleShareFailure
+  handleShareFailure,
+  includeGameLink = true
 ) => {
+  const GAME_URL = window.location.href;
   const textToShare =
     `${GAME_TITLE} #${puzzleIndex}\n\n` +
-    generateEmojiGrid(gameData, submittedGuesses, true);
+    generateEmojiGrid(gameData, submittedGuesses, true) +
+    `${includeGameLink ? "\n\n" + GAME_URL : ""}`;
 
   const shareData = { text: textToShare };
 

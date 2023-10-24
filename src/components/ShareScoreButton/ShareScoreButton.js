@@ -35,7 +35,8 @@ function ShareScoreButton({ buttonText = "Share", className = "" }) {
             gameData,
             submittedGuesses,
             handleShareToClipboard,
-            handleShareFailure
+            handleShareFailure,
+            true
           )
         }
       >

@@ -5,8 +5,6 @@ import {
   differenceOfArrays,
 } from "./utils";
 
-import { GAME_URL } from "./constants";
-
 function getAllWordsOfGameData({ gameData }) {
   const numCategories = gameData.length;
   let allWords = [];
@@ -123,11 +121,7 @@ export function isGuessesFromGame({ gameData, submittedGuesses }) {
   return isSubset;
 }
 
-export const generateEmojiGrid = (
-  gameData,
-  submittedGuesses,
-  includeGameLink = false
-) => {
+export const generateEmojiGrid = (gameData, submittedGuesses) => {
   const wordToDifficultyMap = {};
   const tiles = getEmojiTiles();
 
@@ -167,9 +161,7 @@ export const generateEmojiGrid = (
     allEmojiRowsArray.push(emojiRowForGuess);
   }
 
-  return `${allEmojiRowsArray.join("\n")}${
-    includeGameLink ? "\n\n" + GAME_URL : ""
-  }`;
+  return `${allEmojiRowsArray.join("\n")}`;
 };
 
 export function getEmojiTiles() {

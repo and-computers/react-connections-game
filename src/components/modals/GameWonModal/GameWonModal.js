@@ -21,7 +21,7 @@ function GameWonModal({ open, submittedGuesses }) {
         {/* the whitespace: pre style makes the emoji grid appear with new lines character */}
         <span className="text-center whitespace-pre">
           {"\n"}
-          {generateEmojiGrid(gameData, submittedGuesses, false)}
+          {generateEmojiGrid(gameData, submittedGuesses)}
         </span>
         <CountdownToNextPuzzle />
       </div>

@@ -28,7 +28,7 @@ function ViewResultsModal() {
         </p>
         <span className="text-center whitespace-pre mb-2">
           {"\n"}
-          {generateEmojiGrid(gameData, submittedGuesses, false)}
+          {generateEmojiGrid(gameData, submittedGuesses)}
         </span>
         <CountdownToNextPuzzle />
       </div>
