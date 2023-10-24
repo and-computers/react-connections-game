@@ -4,7 +4,9 @@ This is a clone of the [NYT Connections Game](https://www.nytimes.com/games/conn
 
 Anyways..
 
-### [Try Out The Demo]()
+### [Click Here To Try Out The Demo](https://blackconnections.andcomputers.io/)
+
+![Gif of Connections Gameplay](/docs/instructions-gif-connections.gif)
 
 ## To Run Locally:
 
@@ -45,6 +47,11 @@ npm run dev
 
 ### Projects Built Using This Repo:
 
-- your fork here!
+- _your fork here!_
 
 _Want to add one to the list? Please make a pull request._
+
+#### If you found this helpful or entertaining feel free to check out our other work!
+
+- [Writings & Thoughts](https://andcomputers.io)
+- [Black Wordle](https://blackwords.andcomputers.io)
