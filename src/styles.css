@@ -73,7 +73,7 @@ h1 {
   padding-left: var(--game-spacing);
   padding-right: var(--game-spacing);
   margin: 0 auto;
-  min-width: max(250px, 55vh, 85%);
+  min-width: max(300px, 55vh, 40%);
   max-width: min(500px, 58vh, 100%);
 }
 
