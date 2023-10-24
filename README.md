@@ -11,8 +11,8 @@ Anyways..
 ## To Run Locally:
 
 ```
-cd connections-clone
-cd npm install
+cd react-connections-game
+npm install
 npm run dev
 ```
 
