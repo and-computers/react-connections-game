@@ -80,7 +80,7 @@ function InfoModal() {
                     </a>
                   </li>
                   <li>
-                    <p className="mt-2 mb-1">Help pay for servers and labor:</p>
+                    <p className="mt-2 mb-1">Help us pay for servers & time:</p>
                     <ul>
                       <li>
                         {" "}
