@@ -55,3 +55,7 @@ _Want to add one to the list? Please make a pull request._
 
 - [Writings & Thoughts](https://andcomputers.io)
 - [Black Wordle](https://blackwords.andcomputers.io)
+
+##### If you'd like to support financially
+
+- [One-Time Contribution via Stripe](https://buy.stripe.com/7sIg1Udac6xZegodQR)

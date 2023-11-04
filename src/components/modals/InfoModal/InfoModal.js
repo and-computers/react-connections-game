@@ -86,7 +86,7 @@ function InfoModal() {
                         {" "}
                         - One-time contribution via{" "}
                         <a
-                          href="https://donate.stripe.com/6oEeXQ8TW6xZfks7ss"
+                          href="https://buy.stripe.com/7sIg1Udac6xZegodQR"
                           target="_blank"
                           className="underline font-bold"
                         >
