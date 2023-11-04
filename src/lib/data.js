@@ -54,27 +54,45 @@ export const CONNECTION_GAMES = [
       category: "California Rappers",
       words: ["O'Shea", "Eric", "Lesane", "Todd"],
       difficulty: 1,
-      imageSrc:
-        "https://i.discogs.com/_6S_T2JFzUkXiFTQR_293P-4oCkI4o4_CvRCmDidvqI/rs:fit/g:sm/q:90/h:600/w:584/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9BLTY4NzEx/OC0xNTEyMjA3Njkz/LTYyNzMuanBlZw.jpeg",
     },
     {
-      category: "Liquor Brands Owned by Rap Artists",
-      words: ["D'ussé", "Effen", "Belair", "Ciroc"],
+      category: "Black Founded Clothing Brands",
+      words: ["Fubu", "Phat Farm", "Enyce", "Rocawear"],
       difficulty: 2,
-      imageSrc:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToL3q2acAIfM-Co_IcAtPCcc4yslTGSdhDgg&usqp=CAU",
     },
     {
-      category: "Hair Styles",
-      words: ["Bob", "Weave", "Fade", "Taper"],
+      category: "Hair Cut Styles",
+      words: ["Ceasar", "Wavelength", "Fade", "Taper"],
       difficulty: 3,
     },
-
     {
       category: "Black Mayors",
       words: ["Bass", "Turner", "Adams", "Washington"],
       difficulty: 4,
       imageSrc: "https://i.ibb.co/pP1xn0Z/Connections.png",
+    },
+  ],
+  [
+    {
+      category: "Church Leadership Roles",
+      words: ["Deacon", "Elder", "Minister", "Pastor"],
+      difficulty: 1,
+    },
+    {
+      category: "Words for Lucky",
+      words: ["Blessed", "Fortunate", "Favored", "Providential"],
+      difficulty: 2,
+    },
+    {
+      category: "R&B Icons",
+      words: ["Tyrese", "Usher", "Brandy", "Maxwell"],
+      difficulty: 3,
+    },
+
+    {
+      category: "Tupac's Leading Roles",
+      words: ["Bishop", "Lucky", "Birdie", "Tank"],
+      difficulty: 4,
     },
   ],
 ];
