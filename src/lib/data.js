@@ -77,22 +77,27 @@ export const CONNECTION_GAMES = [
       category: "Church Leadership Roles",
       words: ["Deacon", "Elder", "Minister", "Pastor"],
       difficulty: 1,
+      imageSrc: "https://d1isxmzxwhhjbk.cloudfront.net/3/Church-Roles.png",
     },
     {
-      category: "Words for Lucky",
+      category: "Synonyms for Lucky",
       words: ["Blessed", "Fortunate", "Favored", "Providential"],
       difficulty: 2,
+      imageSrc:
+        "https://d1isxmzxwhhjbk.cloudfront.net/3/Synonyms-for-Lucky.png",
     },
     {
       category: "R&B Icons",
       words: ["Tyrese", "Usher", "Brandy", "Maxwell"],
       difficulty: 3,
+      imageSrc: "https://d1isxmzxwhhjbk.cloudfront.net/3/R-B-Icons.png",
     },
 
     {
-      category: "Tupac's Leading Roles",
+      category: "Tupac's Movie Character Names",
       words: ["Bishop", "Lucky", "Birdie", "Tank"],
       difficulty: 4,
+      imageSrc: "https://d1isxmzxwhhjbk.cloudfront.net/3/Tupac-Movie-Roles.png",
     },
   ],
 ];
