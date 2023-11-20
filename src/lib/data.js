@@ -100,4 +100,27 @@ export const CONNECTION_GAMES = [
       imageSrc: "https://d1isxmzxwhhjbk.cloudfront.net/3/Tupac-Movie-Roles.png",
     },
   ],
+  [
+    {
+      category: "Slang for 'A Lot'",
+      words: ["Bare", "Mad", "Hella", "Buku"],
+      difficulty: 1,
+    },
+    {
+      category: "Slang for 'Great'",
+      words: ["Cold", "Raw", "Dope", "Lit"],
+      difficulty: 2,
+    },
+    {
+      category: "Ways to Refer to Money",
+      words: ["Brick", "Band", "Rack", "C-Note"],
+      difficulty: 3,
+    },
+
+    {
+      category: "Things Needed to Make a Pizza",
+      words: ["Cheddar", "Dough", "Sauce", "Heat"],
+      difficulty: 4,
+    },
+  ],
 ];
