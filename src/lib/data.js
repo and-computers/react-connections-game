@@ -123,4 +123,32 @@ export const CONNECTION_GAMES = [
       difficulty: 4,
     },
   ],
+  [
+    {
+      category: "Boondocks Characters",
+      words: ["Riley", "Huey", "Jazmine", "Robert"],
+      difficulty: 1,
+      imageSrc:
+        "https://d1isxmzxwhhjbk.cloudfront.net/4/Boondocks-Characters.png",
+    },
+    {
+      category: "Uncle ____",
+      words: ["Ruckus", "Tom", "Luke", "Ben's"],
+      difficulty: 2,
+      imageSrc: "https://d1isxmzxwhhjbk.cloudfront.net/4/Uncle___.png",
+    },
+    {
+      category: "Bobby ____",
+      words: ["Brown", "Womack", "Schmurda", "Valentino"],
+      difficulty: 3,
+      imageSrc: "https://d1isxmzxwhhjbk.cloudfront.net/4/Bobby___.png",
+    },
+    {
+      category: "Black Panther Leadership",
+      words: ["Bobby", "Fred", "Elaine", "Kathleen"],
+      difficulty: 4,
+
+      imageSrc: "https://d1isxmzxwhhjbk.cloudfront.net/4/Black-Panthers.png",
+    },
+  ],
 ];
