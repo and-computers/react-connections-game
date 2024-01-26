@@ -112,6 +112,47 @@ h1 {
   border: 0;
 }
 
+/* Dropdown Styles */
+
+.dropdown-label {
+  display: block;
+  color: var(--color-gray-300);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  font-family: sans-serif;
+}
+
+.dropdown {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-family: sans-serif;
+  background-color: white;
+  border: 1px solid var(--color-gray-500);
+  border-radius: 0.25rem;
+  color: var(--color-gray-900);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease-in-out;
+}
+
+.dropdown:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5); /* Adjust color if necessary */
+}
+
+@media (max-width: 600px) {
+  .dropdown-label {
+    font-size: 0.9rem;
+  }
+  .dropdown {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
+
 /*
     Keyframe animations
   */

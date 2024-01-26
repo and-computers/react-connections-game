@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
 import { Shuffle, Undo, SendHorizontal } from "lucide-react";
@@ -24,9 +24,16 @@ function GameControlButtonsPanel({
     setSubmittedGuesses,
     solvedGameData,
     setSolvedGameData,
+    puzzleCreator,
+    seenOnNYT,
+    setPuzzleCreator,
+    setSeenOnNYT,
   } = React.useContext(GameStatusContext);
   const { gameData, categorySize } = React.useContext(PuzzleDataContext);
   const { toast } = useToast();
+  // const [puzzleCreator, setPuzzleCreator] = useState("Human");
+  // const [seenOnNYT, setSeenOnNYT] = useState("Yes");
+
 
   function deselectAll() {
     setGuessCandidate([]);
@@ -90,36 +97,71 @@ function GameControlButtonsPanel({
   }
 
   return (
-    <div className="grid grid-cols-3 gap-4">
-      <Button
-        disabled={isGameOver}
-        variant="secondary"
-        onClick={() =>
-          setShuffledRows(shuffleGameData({ gameData: shuffledRows }))
-        }
-      >
-        <Shuffle className="h-4 w-4 mr-2" strokeWidth={1} />
-        <p className="select-none">Shuffle</p>
-      </Button>
-      <Button
-        size="deselectallsize"
-        disabled={isGameOver}
-        variant="secondary"
-        onClick={deselectAll}
-      >
-        <Undo className="h-4 w-4 mr-2" strokeWidth={1} />
-        <p className="select-none">Deselect All</p>
-      </Button>
-      <Button
-        variant="submit"
-        onClick={submitCandidateGuess}
-        disabled={isGameOver || guessCandidate.length !== categorySize}
-      >
-        <SendHorizontal className="h-4 w-4 mr-2" strokeWidth={1} />
-        <p className="select-none">Submit</p>
-      </Button>
+    
+<div className="controls-container">
+<div className="grid grid-cols-3 gap-4">
+        {/* Existing buttons here */}
+      </div>
+      <div className="flex justify-center gap-4 mt-4">
+        <div>
+          <label htmlFor="puzzleCreator" className="block text-sm font-medium text-gray-700">Puzzle Created By:</label>
+          <select
+            id="puzzleCreator"
+            value={puzzleCreator}
+            onChange={(e) => setPuzzleCreator(e.target.value)}
+            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          >
+            <option value="Human">Human</option>
+            <option value="AI">AI</option>
+          </select>
+        </div>
+        {puzzleCreator === "Human" && (
+          <div>
+            <label htmlFor="seenOnNYT" className="block text-sm font-medium text-gray-700">Seen before on NYT?</label>
+            <select
+              id="seenOnNYT"
+              value={seenOnNYT}
+              onChange={(e) => setSeenOnNYT(e.target.value)}
+              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            >
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+        )}
+      </div>
+      <div className="button-row">
+        <Button
+          disabled={isGameOver}
+          variant="secondary"
+          onClick={() => setShuffledRows(shuffleGameData({ gameData: shuffledRows }))}
+        >
+          <Shuffle className="h-4 w-4 mr-2" strokeWidth={1} />
+          <p className="select-none">Shuffle</p>
+        </Button>
+        <Button
+          disabled={isGameOver}
+          variant="secondary"
+          onClick={deselectAll}
+        >
+          <Undo className="h-4 w-4 mr-2" strokeWidth={1} />
+          <p className="select-none">Deselect All</p>
+        </Button>
+        <Button
+          variant="submit"
+          onClick={submitCandidateGuess}
+          disabled={isGameOver || guessCandidate.length !== categorySize}
+        >
+          <SendHorizontal className="h-4 w-4 mr-2" strokeWidth={1} />
+          <p className="select-none">Submit</p>
+        </Button>
+      </div>
     </div>
   );
 }
 
 export default GameControlButtonsPanel;
+
+
+
+
