@@ -45,6 +45,8 @@ function GameStatusProvider({ children }) {
   const [isGameOver, setIsGameOver] = React.useState(false);
   const [isGameWon, setIsGameWon] = React.useState(false);
   const [guessCandidate, setGuessCandidate] = React.useState([]);
+  const [puzzleCreator, setPuzzleCreator] = React.useState("Human");
+  const [seenOnNYT, setSeenOnNYT] = React.useState("Yes");
 
   const numMistakesUsed = submittedGuesses.length - solvedGameData.length;
 
@@ -73,6 +75,10 @@ function GameStatusProvider({ children }) {
       value={{
         isGameOver,
         isGameWon,
+        seenOnNYT,
+        setSeenOnNYT,
+        puzzleCreator,
+        setPuzzleCreator,
         numMistakesUsed,
         solvedGameData,
         setSolvedGameData,
